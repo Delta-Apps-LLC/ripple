@@ -47,6 +47,12 @@ class DashboardView extends StatelessWidget {
       }
     }
 
+    double getRemainingNeeded(RoundupSettingProvider roundupSettingProvider) {
+      return roundupSettingProvider.roundupSetting!.donationThreshold!
+              .toDouble() -
+          roundupSettingProvider.roundupSetting!.runningTotal!;
+    }
+
     return Consumer<RoundupSettingProvider>(
       builder: (context, roundupSettingProvider, child) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +66,8 @@ class DashboardView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(12.0),
             child: StatTile(
-              stat: '\$65.00',
+              stat:
+                  '\$${roundupSettingProvider.roundupSetting!.totalYtd!.toStringAsFixed(2)}',
               label: 'Donated this year',
               description:
                   'This is the total amount of donations you have made this year with all of your roundups combined.',
@@ -73,7 +80,8 @@ class DashboardView extends StatelessWidget {
               children: [
                 Expanded(
                   child: StatTile(
-                    stat: '\$1.76',
+                    stat:
+                        '\$${getRemainingNeeded(roundupSettingProvider).toStringAsFixed(2)}',
                     label: 'Until next donation',
                     description:
                         'This is the amount of roundups needed until you reach the donation threshold and the charity you have selected receives your donation.',
@@ -84,7 +92,11 @@ class DashboardView extends StatelessWidget {
                   width: 4,
                 ),
                 Expanded(
-                  child: AnimatedProgressWave(value: 2.5),
+                  child: AnimatedProgressWave(
+                    value: roundupSettingProvider.roundupSetting!.runningTotal!,
+                    threshold: roundupSettingProvider
+                        .roundupSetting!.donationThreshold!,
+                  ),
                 ),
               ],
             ),

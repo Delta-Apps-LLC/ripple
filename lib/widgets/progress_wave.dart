@@ -5,9 +5,13 @@ import 'package:ripple/themes.dart';
 import 'package:ripple/utils/stat_info_modal.dart';
 
 class AnimatedProgressWave extends StatefulWidget {
-  const AnimatedProgressWave({super.key, required this.value});
-
+  const AnimatedProgressWave({
+    super.key,
+    required this.value,
+    required this.threshold,
+  });
   final double value;
+  final int threshold;
 
   @override
   _AnimatedProgressWaveState createState() => _AnimatedProgressWaveState();
@@ -79,7 +83,7 @@ class _AnimatedProgressWaveState extends State<AnimatedProgressWave>
                           onPressed: () => showInfoModal(
                               context,
                               '\$${widget.value.toStringAsFixed(2)}',
-                              'This is how much you have currently rounded up towards your next donation of \$5'),
+                              'This is how much you have currently rounded up towards your next donation of \$${widget.threshold}'),
                         ),
                       ],
                     ),
