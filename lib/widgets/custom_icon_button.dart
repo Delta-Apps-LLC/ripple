@@ -18,6 +18,7 @@ class CustomIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
+      height: 50,
       padding: EdgeInsets.all(4),
       decoration: BoxDecoration(
         gradient: LinearGradient(

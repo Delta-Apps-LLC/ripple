@@ -4,7 +4,9 @@ CREATE TABLE "user"
   firstname VARCHAR(15) NOT NULL,
   lastname VARCHAR(20) NOT NULL,
   email VARCHAR(50) UNIQUE NOT NULL,
-  created_at TIMESTAMP NOT NULL,
+  onboard_level TEXT NOT NULL,
+  isdeleted BOOLEAN NOT NULL DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   PRIMARY KEY (userid)
 );
 
@@ -14,22 +16,23 @@ CREATE TABLE CHARITY
   charityname TEXT UNIQUE NOT NULL,
   description TEXT NOT NULL,
   logo VARCHAR(15) NOT NULL,
-  isactive BOOLEAN DEFAULT true,
+  isactive BOOLEAN NOT NULL DEFAULT true,
   stripe_account_id VARCHAR(30) UNIQUE NOT NULL,
+  cause TEXT NOT NULL DEFAULT "other",
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (charityid)
 );
 
-CREATE TABLE ROUNDUP_SETTINGS
+CREATE TABLE ROUNDUP_SETTING
 (
   roundupid SERIAL NOT NULL,
-  userid INT NOT NULL,
+  userid INT UNIQUE NOT NULL,
   charityid INT,
-  monthlycap FLOAT,
-  totalytd FLOAT NOT NULL,
-  running_total FLOAT NOT NULL,
-  donation_threshold FLOAT NOT NULL,
-  roundup_amount FLOAT NOT NULL,
+  monthlycap INT,
+  totalytd FLOAT NOT NULL DEFAULT 0.0,
+  running_total FLOAT NOT NULL DEFAULT 0.0,
+  donation_threshold INT NOT NULL DEFAULT 5,
+  roundup_amount INT NOT NULL DEFAULT 1,
   isactive BOOLEAN NOT NULL DEFAULT true,
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (roundupid),
@@ -68,8 +71,8 @@ CREATE INDEX idx_user_email ON "user" (email);
 CREATE INDEX idx_charity_name_active ON CHARITY (charityname) WHERE isactive = true;
 
 -- Create indexes on ROUNDUP_SETTINGS table
-CREATE INDEX idx_roundup_settings_userid ON ROUNDUP_SETTINGS (userid);
-CREATE INDEX idx_roundup_settings_charityid ON ROUNDUP_SETTINGS (charityid);
+CREATE INDEX idx_roundup_settings_userid ON ROUNDUP_SETTING (userid);
+CREATE INDEX idx_roundup_settings_charityid ON ROUNDUP_SETTING (charityid);
 
 -- Create indexes on USER_BANK table
 CREATE UNIQUE INDEX idx_user_bank_userid ON USER_BANK (userid);

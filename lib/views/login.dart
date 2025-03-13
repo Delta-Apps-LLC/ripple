@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/views/onboard.dart';
 import 'package:ripple/widgets/custom_icon_button.dart';
+import 'package:ripple/widgets/login_form.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -22,27 +24,51 @@ class LoginView extends StatelessWidget {
                 'ripple',
                 style: GoogleFonts.montserrat(
                     color: AppColors.black, fontSize: 40),
-              )
+              ),
             ]),
             Column(
               children: [
-                CustomIconButton(
-                    text: 'Sign in with Email',
-                    colors: [AppColors.lightGray, AppColors.purple],
-                    icon: Icon(
-                      Icons.key,
-                      size: 35,
-                      color: AppColors.green,
-                    ),
-                    function: () {}),
+                LoginForm(),
                 const SizedBox(
-                  height: 15,
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: AppColors.lightGray,
+                        thickness: 1.0,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        'Or',
+                        style: GoogleFonts.raleway(
+                            color: AppColors.black, fontSize: 20),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        color: AppColors.lightGray,
+                        thickness: 1.0,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 CustomIconButton(
                     text: 'Sign up',
-                    colors: [AppColors.lightGray, AppColors.purple],
+                    colors: [AppColors.lightGray, AppColors.lightGray],
                     icon: null,
-                    function: () {}),
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OnboardView()));
+                    }),
                 const SizedBox(
                   height: 30,
                 ),
