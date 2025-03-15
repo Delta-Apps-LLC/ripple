@@ -5,6 +5,7 @@ import 'package:ripple/models/roundup_setting.dart';
 import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/utils/snackbar.dart';
 import 'package:ripple/widgets/charity_list.dart';
 import 'package:ripple/widgets/charity_list_item.dart';
 import 'package:ripple/widgets/custom_icon_button.dart';
@@ -44,6 +45,8 @@ class _CharityViewState extends State<CharityView> {
       );
       await roundupSettingProvider.setRoundupSetting(newSetting);
       setState(() => _loading = false);
+      showCustomSnackbar(context, 'Your charity has been successfully updated',
+          AppColors.green);
     }
   }
 
