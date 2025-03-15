@@ -50,41 +50,43 @@ class _CharityViewState extends State<CharityView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<CharityProvider>(
-      builder: (context, charityProvider, child) => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          PageTitle(title: 'Your Current Charity'),
-          (charityProvider.isLoadingCharities)
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.darkBlue,
+      builder: (context, charityProvider, child) => SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            PageTitle(title: 'Your Current Charity'),
+            (charityProvider.isLoadingCharities)
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.darkBlue,
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(top: 12.0, bottom: 30),
+                    child: CharityListItem(
+                      charity: charityProvider.currentCharity,
+                      isSelected: false,
+                      onTap: () => onCharitySelected,
+                    ),
                   ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(top: 12.0, bottom: 30),
-                  child: CharityListItem(
-                    charity: charityProvider.currentCharity,
-                    isSelected: false,
-                    onTap: () => onCharitySelected,
-                  ),
-                ),
-          PageTitle(title: 'Other Charities'),
-          CharityList(onCharitySelected: onCharitySelected),
-          if (_loading)
-            CircularProgressIndicator(
-              color: AppColors.darkBlue,
+            PageTitle(title: 'Other Charities'),
+            CharityList(onCharitySelected: onCharitySelected),
+            if (_loading)
+              CircularProgressIndicator(
+                color: AppColors.darkBlue,
+              ),
+            Consumer<RoundupSettingProvider>(
+              builder: (context, roundupSettingProvider, child) =>
+                  CustomIconButton(
+                text: 'Switch Charity',
+                colors: [AppColors.darkGray, AppColors.purple],
+                function: () => saveNewCharity(roundupSettingProvider),
+                disabled: _selectedCharity == null,
+              ),
             ),
-          Consumer<RoundupSettingProvider>(
-            builder: (context, roundupSettingProvider, child) =>
-                CustomIconButton(
-              text: 'Switch Charity',
-              colors: [AppColors.darkGray, AppColors.purple],
-              function: () => saveNewCharity(roundupSettingProvider),
-              disabled: _selectedCharity == null,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
