@@ -40,9 +40,6 @@ class _AppProvidersState extends State<AppProviders> {
         ChangeNotifierProvider<CharityProvider>(
           create: (_) => CharityProvider(_charityService),
         ),
-        ChangeNotifierProvider<RoundupSettingProvider>(
-          create: (_) => RoundupSettingProvider(_roundupSettingService),
-        ),
 
         // Add to this section any providers that both maintain their own state
         // and depend upon the state of other providers.
@@ -56,6 +53,10 @@ class _AppProvidersState extends State<AppProviders> {
               UserIdentityProvider(authProvider, _userIdentityService),
           update: (_, authProvider, previous) =>
               previous.updateDependencies(authProvider),
+        ),
+        SimpleChangeNotifierProxyProvider<UserIdentityProvider, RoundupSettingProvider>(
+          create: (_, userIdentityProvider) => RoundupSettingProvider(userIdentityProvider, _roundupSettingService),
+          update: (_, userIdentityProvider, previous) => previous.updateDependencies(userIdentityProvider),
         ),
 
         // Add to this section any providers that only transform the state of

@@ -7,7 +7,7 @@ import 'package:ripple/utils/stat_info_modal.dart';
 class AnimatedProgressWave extends StatefulWidget {
   const AnimatedProgressWave({
     super.key,
-    required this.value,
+    this.value = 0.0,
     required this.threshold,
   });
   final double value;

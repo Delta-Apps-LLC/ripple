@@ -4,11 +4,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class RoundupSettingService {
   static const String _roundupTable = 'roundup_setting';
 
-  Future<RoundupSetting?> getRoundupSettings() async {
+  Future<RoundupSetting?> getRoundupSettings(int userId) async {
     try {
-      final result =
-          await Supabase.instance.client.from(_roundupTable).select();
-      return result.map(_mapToRoundupSetting).first;
+      final result = await Supabase.instance.client
+          .from(_roundupTable)
+          .select()
+          .match({'userid': userId}).single();
+      return _mapToRoundupSetting(result);
     } catch (err) {
       return null;
     }
@@ -32,7 +34,7 @@ class RoundupSettingService {
     return res;
   }
 
-  RoundupSetting? _mapToRoundupSetting(Map<String, dynamic> map) =>
+  RoundupSetting _mapToRoundupSetting(Map<String, dynamic> map) =>
       RoundupSetting(
         id: map['roundupid'],
         userId: map['userid'],
@@ -41,8 +43,12 @@ class RoundupSettingService {
         monthlyCap: map['monthlycap'],
         donationThreshold: map['donation_threshold'],
         roundupAmount: map['roundup_amount'],
-        runningTotal: (map['running_total'] as int).toDouble(),
-        totalYtd: (map['totalytd'] as int).toDouble(),
+        runningTotal: map['running_total'] is int
+            ? (map['running_total'] as int).toDouble()
+            : (map['running_total'] as double).toDouble(),
+        totalYtd: map['totalytd'] is int
+            ? (map['totalytd'] as int).toDouble()
+            : (map['totalytd'] as double).toDouble(),
       );
 
   Map<String, dynamic> _newRoundupSettingToMap(RoundupSetting setting) => {

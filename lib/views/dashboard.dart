@@ -48,88 +48,105 @@ class DashboardView extends StatelessWidget {
     }
 
     double getRemainingNeeded(RoundupSettingProvider roundupSettingProvider) {
-      return roundupSettingProvider.roundupSetting!.donationThreshold!
-              .toDouble() -
-          roundupSettingProvider.roundupSetting!.runningTotal!;
+      if (roundupSettingProvider.roundupSetting != null) {
+        return roundupSettingProvider.roundupSetting!.donationThreshold!
+                .toDouble() -
+            roundupSettingProvider.roundupSetting!.runningTotal!;
+      } else {
+        return 0.0;
+      }
     }
 
     return Consumer<RoundupSettingProvider>(
       builder: (context, roundupSettingProvider, child) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Your Dashboard',
-            style: GoogleFonts.montserrat(color: AppColors.black, fontSize: 28),
-          ),
-          const Divider(),
-          Padding(
-            padding: EdgeInsets.all(12.0),
-            child: StatTile(
-              stat:
-                  '\$${roundupSettingProvider.roundupSetting!.totalYtd!.toStringAsFixed(2)}',
-              label: 'Donated this year',
-              description:
-                  'This is the total amount of donations you have made this year with all of your roundups combined.',
-              isFullWidth: true,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                Expanded(
+        children: roundupSettingProvider.loadingRoundupSetting
+            ? [
+                Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.darkBlue,
+                  ),
+                ),
+              ]
+            : [
+                Text(
+                  'Your Dashboard',
+                  style: GoogleFonts.montserrat(
+                      color: AppColors.black, fontSize: 28),
+                ),
+                const Divider(),
+                Padding(
+                  padding: EdgeInsets.all(12.0),
                   child: StatTile(
                     stat:
-                        '\$${getRemainingNeeded(roundupSettingProvider).toStringAsFixed(2)}',
-                    label: 'Until next donation',
+                        '\$${roundupSettingProvider.roundupSetting?.totalYtd?.toStringAsFixed(2)}',
+                    label: 'Donated this year',
                     description:
-                        'This is the amount of roundups needed until you reach the donation threshold and the charity you have selected receives your donation.',
-                    isFullWidth: false,
+                        'This is the total amount of donations you have made this year with all of your roundups combined.',
+                    isFullWidth: true,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: StatTile(
+                          stat:
+                              '\$${getRemainingNeeded(roundupSettingProvider).toStringAsFixed(2)}',
+                          label: 'Until next donation',
+                          description:
+                              'This is the amount of roundups needed until you reach the donation threshold and the charity you have selected receives your donation.',
+                          isFullWidth: false,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Expanded(
+                        child: AnimatedProgressWave(
+                          value: roundupSettingProvider
+                                  .roundupSetting?.runningTotal ??
+                              0.0,
+                          threshold: roundupSettingProvider
+                                  .roundupSetting?.donationThreshold ??
+                              5,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
-                  width: 4,
+                  height: 25,
+                ),
+                Text(
+                  'Your Charities This Year',
+                  style: GoogleFonts.montserrat(
+                      color: AppColors.black, fontSize: 28),
+                ),
+                const Divider(),
+                const SizedBox(
+                  height: 25,
                 ),
                 Expanded(
-                  child: AnimatedProgressWave(
-                    value: roundupSettingProvider.roundupSetting!.runningTotal!,
-                    threshold: roundupSettingProvider
-                        .roundupSetting!.donationThreshold!,
+                  child: SingleChildScrollView(
+                    child: Column(
+                        children: charities.map((charity) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: GestureDetector(
+                          onTap: () => showCharityDetails(context, charity),
+                          child: Image.asset(
+                            getCharityLogoAsset(charity.logo),
+                            scale: 0.75,
+                          ),
+                        ),
+                      );
+                    }).toList()),
                   ),
-                ),
+                )
               ],
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Text(
-            'Your Charities This Year',
-            style: GoogleFonts.montserrat(color: AppColors.black, fontSize: 28),
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 25,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                  children: charities.map((charity) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: GestureDetector(
-                    onTap: () => showCharityDetails(context, charity),
-                    child: Image.asset(
-                      getCharityLogoAsset(charity.logo),
-                      scale: 0.75,
-                    ),
-                  ),
-                );
-              }).toList()),
-            ),
-          )
-        ],
       ),
     );
   }
