@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/charity_modal.dart';
+import 'package:ripple/widgets/page_title.dart';
 import 'package:ripple/widgets/progress_wave.dart';
 import 'package:ripple/widgets/stat_tile.dart';
 
@@ -70,14 +70,9 @@ class DashboardView extends StatelessWidget {
                 ),
               ]
             : [
-                Text(
-                  'Your Dashboard',
-                  style: GoogleFonts.montserrat(
-                      color: AppColors.black, fontSize: 28),
-                ),
-                const Divider(),
+                PageTitle(title: 'Your Dashboard'),
                 Padding(
-                  padding: EdgeInsets.all(12.0),
+                  padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
                   child: StatTile(
                     stat:
                         '\$${roundupSettingProvider.roundupSetting?.totalYtd?.toStringAsFixed(2)}',
@@ -120,15 +115,7 @@ class DashboardView extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                Text(
-                  'Your Charities This Year',
-                  style: GoogleFonts.montserrat(
-                      color: AppColors.black, fontSize: 28),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 25,
-                ),
+                PageTitle(title: 'Your Charities This Year'),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(

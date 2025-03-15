@@ -16,6 +16,7 @@ import 'package:ripple/widgets/onboard/connect_bank_page.dart';
 import 'package:ripple/widgets/onboard/how_it_works_page.dart';
 import 'package:ripple/widgets/onboard/select_charity_page.dart';
 import 'package:ripple/widgets/onboard/signup_page.dart';
+import 'package:ripple/widgets/page_title.dart';
 
 class OnboardView extends StatefulWidget {
   const OnboardView({super.key, this.level});
@@ -305,17 +306,7 @@ class _OnboardViewState extends State<OnboardView> {
                                       )
                                     ],
                                   ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        _getPageTitle(_currentPage),
-                                        style: GoogleFonts.montserrat(
-                                            color: AppColors.black,
-                                            fontSize: 28),
-                                      ),
-                                      const Divider()
-                                    ],
-                                  ),
+                                  PageTitle(title: _getPageTitle(_currentPage)),
                                   pages[_currentPage].page,
                                   if (_loading)
                                     CircularProgressIndicator(
