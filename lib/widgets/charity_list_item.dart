@@ -18,6 +18,17 @@ class CharityListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getCharityLogoAsset(CharityLogo logo) => switch (logo) {
+          CharityLogo.stJude => 'assets/images/charities/st_jude_logo.png',
+          CharityLogo.feedingAmerica =>
+            'assets/images/charities/feeding_america_logo.png',
+          CharityLogo.our => 'assets/images/charities/our_logo.png',
+          CharityLogo.salvationArmy =>
+            'assets/images/charities/salvation_army_logo.png',
+          CharityLogo.americanCancerSociety =>
+            'assets/images/charities/am_cancer_society_logo.png',
+        };
+
     String getCharityCause(CharityCause cause) => switch (cause) {
           CharityCause.agriculture => 'Agriculture',
           CharityCause.health => 'Health',
@@ -40,6 +51,17 @@ class CharityListItem extends StatelessWidget {
           padding: const EdgeInsets.all(6.0),
           child: Row(
             children: [
+              CircleAvatar(
+                backgroundColor: AppColors.lightGray.withOpacity(0.4),
+                radius: 30,
+                child: Image.asset(
+                  getCharityLogoAsset(charity.logo),
+                  height: 50,
+                ),
+              ),
+              const SizedBox(
+                width: 12,
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

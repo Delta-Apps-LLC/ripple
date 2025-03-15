@@ -24,7 +24,7 @@ class CharityService {
   CharityLogo _parseCharityLogo(String logo) => switch (logo) {
         'our' => CharityLogo.our,
         'feedingAmerica' => CharityLogo.feedingAmerica,
-        'salvationArmy' => CharityLogo.feedingAmerica,
+        'salvationArmy' => CharityLogo.salvationArmy,
         'stJude' => CharityLogo.stJude,
         'americanCancerSociety' => CharityLogo.americanCancerSociety,
         String() => throw UnimplementedError(),

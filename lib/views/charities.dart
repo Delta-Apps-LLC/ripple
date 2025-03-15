@@ -77,12 +77,14 @@ class _CharityViewState extends State<CharityView> {
                 color: AppColors.darkBlue,
               ),
             Consumer<RoundupSettingProvider>(
-              builder: (context, roundupSettingProvider, child) =>
-                  CustomIconButton(
-                text: 'Switch Charity',
-                colors: [AppColors.darkGray, AppColors.purple],
-                function: () => saveNewCharity(roundupSettingProvider),
-                disabled: _selectedCharity == null,
+              builder: (context, roundupSettingProvider, child) => Padding(
+                padding: const EdgeInsets.only(top: 24.0),
+                child: CustomIconButton(
+                  text: 'Switch Charity',
+                  colors: [AppColors.darkGray, AppColors.purple],
+                  function: () => saveNewCharity(roundupSettingProvider),
+                  disabled: _selectedCharity == null,
+                ),
               ),
             ),
           ],
