@@ -44,9 +44,15 @@ class _CharityViewState extends State<CharityView> {
         monthlyCap: roundupSettingProvider.roundupSetting!.monthlyCap,
       );
       await roundupSettingProvider.setRoundupSetting(newSetting);
-      setState(() => _loading = false);
+      setState(() {
+        _loading = false;
+        _selectedCharity = null;
+      });
       showCustomSnackbar(context, 'Your charity has been successfully updated',
           AppColors.green);
+    } else {
+      showCustomSnackbar(
+          context, 'You must first select a charity', AppColors.errorRed);
     }
   }
 
