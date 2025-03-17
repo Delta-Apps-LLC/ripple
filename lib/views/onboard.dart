@@ -11,6 +11,8 @@ import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/snackbar.dart';
 import 'package:ripple/views/auth.dart';
+import 'package:ripple/views/login.dart';
+import 'package:ripple/widgets/app_bar_title.dart';
 import 'package:ripple/widgets/custom_icon_button.dart';
 import 'package:ripple/widgets/onboard/connect_bank_page.dart';
 import 'package:ripple/widgets/onboard/how_it_works_page.dart';
@@ -253,6 +255,21 @@ class _OnboardViewState extends State<OnboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: getAppBarTitle(),
+          centerTitle: true,
+          leading: _currentPage == 0
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginView()));
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: AppColors.black,
+                    size: 30,
+                  ))
+              : null),
       body: Container(
         width: MediaQuery.sizeOf(context).width,
         color: AppColors.white,
@@ -282,30 +299,7 @@ class _OnboardViewState extends State<OnboardView> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/ripple-logo-sm.png',
-                                        width: 25,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Container(
-                                          height: 35,
-                                          width: 2,
-                                          color:
-                                              AppColors.black.withOpacity(0.3),
-                                        ),
-                                      ),
-                                      Text(
-                                        'ripple',
-                                        style: GoogleFonts.montserrat(
-                                            color: AppColors.black,
-                                            fontSize: 30),
-                                      )
-                                    ],
-                                  ),
+                                  // getAppBarTitle(),
                                   PageTitle(title: _getPageTitle(_currentPage)),
                                   pages[_currentPage].page,
                                   if (_loading)

@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget {
                     colors: [AppColors.lightGray, AppColors.lightGray],
                     icon: null,
                     function: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => OnboardView()));
