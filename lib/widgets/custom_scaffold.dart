@@ -13,7 +13,7 @@ class CustomScaffold extends StatefulWidget {
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -22,7 +22,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   }
 
   final List<Widget> pages = [
-    DashboardView(),
+    DashboardView(
+      key: UniqueKey(), // TODO: what?
+    ),
     CharityView(),
     SettingsView(),
   ];

@@ -70,7 +70,10 @@ class DashboardView extends StatelessWidget {
                 ),
               ]
             : [
-                PageTitle(title: 'Your Dashboard'),
+                PageTitle(
+                  title: 'Your Dashboard',
+                  hasRefresh: true,
+                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
                   child: StatTile(

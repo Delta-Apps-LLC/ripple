@@ -60,7 +60,7 @@ class _AnimatedProgressWaveState extends State<AnimatedProgressWave>
             builder: (context, child) {
               return CustomPaint(
                 painter: _WavePainter(
-                  percentage: (widget.value / 5.0).clamp(0.0, 1.0),
+                  percentage: (widget.value / widget.threshold).clamp(0.0, 1.0),
                   wavePhase: _controller.value * 2 * pi,
                 ),
                 child: Stack(
