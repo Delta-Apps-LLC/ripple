@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/views/charities.dart';
 import 'package:ripple/views/dashboard.dart';
+import 'package:ripple/views/donation_history.dart';
 import 'package:ripple/views/settings.dart';
 import 'package:ripple/widgets/app_bar_title.dart';
 
@@ -22,10 +23,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   }
 
   final List<Widget> pages = [
-    DashboardView(
-      key: UniqueKey(), // TODO: what?
-    ),
+    DashboardView(),
     CharityView(),
+    DonationHistoryView(),
     SettingsView(),
   ];
 
@@ -41,6 +41,11 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         backgroundColor: AppColors.darkBlue,
         icon: Icon(Icons.volunteer_activism),
         label: 'Charities',
+      ),
+      const BottomNavigationBarItem(
+        backgroundColor: AppColors.darkBlue,
+        icon: Icon(Icons.monetization_on),
+        label: 'Transactions',
       ),
       const BottomNavigationBarItem(
         backgroundColor: AppColors.darkBlue,

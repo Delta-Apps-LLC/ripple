@@ -1,3 +1,5 @@
+-- TABLES
+
 CREATE TABLE "user"
 (
   userid SERIAL NOT NULL,
@@ -64,6 +66,8 @@ CREATE TABLE DONATION_HISTORY
   FOREIGN KEY (userid) REFERENCES "user"(userid) ON DELETE CASCADE
 );
 
+-- INDEXES
+
 -- Create indexes on USER table
 CREATE INDEX idx_user_email ON "user" (email);
 
@@ -81,3 +85,12 @@ CREATE UNIQUE INDEX idx_user_bank_plaid_account_id ON USER_BANK (plaid_account_i
 -- Create partial index on DONATION_HISTORY table for recent donations (e.g., last year)
 CREATE INDEX idx_donation_history_userid ON DONATION_HISTORY (userid);
 CREATE INDEX idx_donation_history_charityid ON DONATION_HISTORY (charityid);
+
+-- VIEWS
+CREATE OR REPLACE VIEW get_donation_history AS
+  SELECT d.donationid, d.charityid, d.userid, d.donation_amount, d.donationdate,
+    c.charityname, c.logo
+  FROM donation_history d
+  INNER JOIN charity c ON d.charityid = c.charityid
+  WHERE EXTRACT(YEAR FROM d.donationdate) = EXTRACT(YEAR FROM CURRENT_DATE)
+  ORDER BY d.donationdate ASC;
