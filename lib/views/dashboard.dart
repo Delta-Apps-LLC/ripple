@@ -75,7 +75,7 @@ class DashboardView extends StatelessWidget {
                   hasRefresh: true,
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
+                  padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
                   child: StatTile(
                     stat:
                         '\$${roundupSettingProvider.roundupSetting?.totalYtd?.toStringAsFixed(2)}',

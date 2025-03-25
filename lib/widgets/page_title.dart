@@ -25,13 +25,13 @@ class PageTitle extends StatelessWidget {
             if (hasRefresh)
               Icon(
                 Icons.refresh,
-                size: 35,
+                size: 30,
                 color: Colors.transparent,
               ),
             Text(
               title,
               style:
-                  GoogleFonts.montserrat(color: AppColors.black, fontSize: 28),
+                  GoogleFonts.montserrat(color: AppColors.black, fontSize: 24),
             ),
             if (hasRefresh)
               Consumer<RoundupSettingProvider>(
@@ -39,7 +39,7 @@ class PageTitle extends StatelessWidget {
                   icon: const Icon(
                     Icons.refresh,
                     color: AppColors.black,
-                    size: 35,
+                    size: 30,
                   ),
                   onPressed: () async {
                     await roundupSettingProvider.refresh();
@@ -50,8 +50,8 @@ class PageTitle extends StatelessWidget {
         ),
         const Divider(),
         const SizedBox(
-          height: 14,
-        ),
+            // height: 14,
+            ),
       ],
     );
   }

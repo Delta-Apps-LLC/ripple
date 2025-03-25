@@ -92,5 +92,4 @@ CREATE OR REPLACE VIEW get_donation_history AS
     c.charityname, c.logo
   FROM donation_history d
   INNER JOIN charity c ON d.charityid = c.charityid
-  WHERE EXTRACT(YEAR FROM d.donationdate) = EXTRACT(YEAR FROM CURRENT_DATE)
-  ORDER BY d.donationdate ASC;
+  ORDER BY d.donationdate DESC;

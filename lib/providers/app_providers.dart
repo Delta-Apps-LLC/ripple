@@ -69,12 +69,12 @@ class _AppProvidersState extends State<AppProviders> {
           update: (_, roundupSettingProvider, previous) =>
               previous.updateDependencies(roundupSettingProvider),
         ),
-        SimpleChangeNotifierProxyProvider<UserIdentityProvider,
+        SimpleChangeNotifierProxyProvider2<UserIdentityProvider, CharityProvider,
             DonationHistoryProvider>(
-          create: (_, userIdentityProvider) =>
-              DonationHistoryProvider(userIdentityProvider, _donationHistoryService),
-          update: (_, userIdentityProvider, previous) =>
-              previous.updateDependencies(userIdentityProvider),
+          create: (_, userIdentityProvider, charityProvider) =>
+              DonationHistoryProvider(userIdentityProvider, charityProvider, _donationHistoryService),
+          update: (_, userIdentityProvider, charityProvider, previous) =>
+              previous.updateDependencies(userIdentityProvider, charityProvider),
         ),
 
         // Add to this section any providers that only transform the state of
