@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ripple/models/charity.dart';
 import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/charity_modal.dart';
 import 'package:ripple/widgets/charity_list_item.dart';
 import 'package:ripple/widgets/page_title.dart';
 import 'package:ripple/widgets/progress_wave.dart';
@@ -15,21 +13,6 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String getCharityLogoAsset(CharityLogo logo) {
-      switch (logo) {
-        case CharityLogo.stJude:
-          return 'assets/images/charities/st_jude_logo.png';
-        case CharityLogo.feedingAmerica:
-          return 'assets/images/charities/feeding_america_logo.png';
-        case CharityLogo.our:
-          return 'assets/images/charities/our_logo.png';
-        case CharityLogo.salvationArmy:
-          return 'assets/images/charities/salvation_army_logo.png';
-        default:
-          return '';
-      }
-    }
-
     double getRemainingNeeded(RoundupSettingProvider roundupSettingProvider) {
       if (roundupSettingProvider.roundupSetting != null) {
         return roundupSettingProvider.roundupSetting!.donationThreshold!
