@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ripple/models/charity.dart';
+import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/charity_modal.dart';
+import 'package:ripple/widgets/charity_list_item.dart';
 import 'package:ripple/widgets/page_title.dart';
 import 'package:ripple/widgets/progress_wave.dart';
 import 'package:ripple/widgets/stat_tile.dart';
@@ -13,25 +15,6 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Charity> charities = [
-      Charity(
-        charityName: 'Feeding America',
-        charityDescription:
-            'Feeding America is a nationwide network of food banks that provides meals to people facing hunger across the United States. They work to address both immediate food needs and systemic causes of food insecurity.',
-        logo: CharityLogo.feedingAmerica,
-        isActive: true,
-        cause: CharityCause.agriculture,
-      ),
-      Charity(
-        charityName: 'The Salvation Army',
-        charityDescription:
-            'The Salvation Army provides a wide range of social services, including disaster relief, food assistance, and rehabilitation programs, to those in need. They aim to address both physical and spiritual needs within communities.',
-        logo: CharityLogo.salvationArmy,
-        isActive: true,
-        cause: CharityCause.humanitarian,
-      ),
-    ];
-
     String getCharityLogoAsset(CharityLogo logo) {
       switch (logo) {
         case CharityLogo.stJude:
@@ -119,21 +102,41 @@ class DashboardView extends StatelessWidget {
                   height: 25,
                 ),
                 PageTitle(title: 'Your Charities This Year'),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                        children: charities.map((charity) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: GestureDetector(
-                          onTap: () => showCharityDetails(context, charity),
-                          child: Image.asset(
-                            getCharityLogoAsset(charity.logo),
-                            scale: 0.75,
-                          ),
-                        ),
-                      );
-                    }).toList()),
+                Consumer<DonationHistoryProvider>(
+                  builder: (context, donationHistoryProvider, child) =>
+                      Expanded(
+                    child: Flexible(
+                      child: Column(
+                          children: donationHistoryProvider.loadingHistory
+                              ? [
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.darkBlue,
+                                    ),
+                                  )
+                                ]
+                              : [
+                                  Expanded(
+                                    child: ListView.separated(
+                                      separatorBuilder:
+                                          (BuildContext context, int index) {
+                                        return const SizedBox(height: 18.0);
+                                      },
+                                      itemCount: donationHistoryProvider
+                                          .charitiesThisYear.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return CharityListItem(
+                                          charity: donationHistoryProvider
+                                              .charitiesThisYear[index],
+                                          isSelected: false,
+                                          onTap: () {},
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ]),
+                    ),
                   ),
                 )
               ],

@@ -39,6 +39,12 @@ class DonationHistoryProvider with ChangeNotifier {
   bool _loadingHistory = false;
   bool get loadingHistory => _loadingHistory;
 
+  final int _currentYear = DateTime.now().year;
+  int get currentYear => _currentYear;
+
+  List<Charity> _charitiesThisYear = [];
+  List<Charity> get charitiesThisYear => _charitiesThisYear;
+
   Future<void> _calculateYearRange() async {
     if (_allDonationHistory.isEmpty) {
       _years = [];
@@ -68,6 +74,25 @@ class DonationHistoryProvider with ChangeNotifier {
 
     _charities = _charityProvider.charities
         .where((charity) => uniqueCharityIds.contains(charity.id))
+        .toList();
+  }
+
+  Future<void> _calculateCharitiesThisYear() async {
+    if (_allDonationHistory.isEmpty) {
+      _charitiesThisYear = [];
+      return;
+    }
+
+    Set<int> uniqueCharityIdsThisYear = {};
+
+    _allDonationHistory
+        .where((donation) => donation.donationDate.year == _currentYear)
+        .forEach((donation) {
+      uniqueCharityIdsThisYear.add(donation.charityId);
+    });
+
+    _charitiesThisYear = _charityProvider.charities
+        .where((charity) => uniqueCharityIdsThisYear.contains(charity.id))
         .toList();
   }
 
@@ -110,6 +135,7 @@ class DonationHistoryProvider with ChangeNotifier {
         .getDonationHistory(_userIdentityProvider.person?.id ?? 0);
     await _calculateYearRange();
     await _calculateCharityRange();
+    await _calculateCharitiesThisYear();
     _applyFilters();
     _loadingHistory = false;
     notifyListeners();
