@@ -9,6 +9,11 @@ CREATE TABLE "user"
   onboard_level TEXT NOT NULL,
   isdeleted BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  addressline1 text null,
+  addressline2 text null,
+  city text null,
+  state text null,
+  zip text null,
   PRIMARY KEY (userid)
 );
 

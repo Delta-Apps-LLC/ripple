@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/history_filter_modal.dart';
+import 'package:ripple/utils/history_statement_modal.dart';
 import 'package:ripple/widgets/donation_history_item.dart';
 import 'package:ripple/widgets/page_title.dart';
 
@@ -76,23 +77,13 @@ class _DonationHistoryViewState extends State<DonationHistoryView> {
                     width: 8,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        showStatementModal(context, donationHistoryProvider),
                     icon: Icon(
-                      Icons.receipt_long,
+                      Icons.description_outlined,
                       size: 28,
                     ),
                     tooltip: 'Statements',
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.download,
-                      size: 28,
-                    ),
-                    tooltip: 'Download',
                   ),
                 ],
               ),

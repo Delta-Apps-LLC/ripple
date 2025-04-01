@@ -5,7 +5,6 @@ import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/themes.dart';
 
 void showFilterModal(BuildContext context, DonationHistoryProvider provider) {
-  //, Function(int?) onFilterChanged, int? initialValue
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
