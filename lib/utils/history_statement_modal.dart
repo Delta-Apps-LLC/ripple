@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +11,6 @@ import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:provider/provider.dart';
-import 'package:ripple/utils/snackbar.dart';
 
 void showStatementModal(
     BuildContext context, DonationHistoryProvider provider) {
@@ -206,18 +204,35 @@ Future<void> _showMonthHistoryModal(BuildContext context,
                             ),
                           ],
                         ),
-                        Column(
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '${userIdentityProvider.person?.firstName} ${userIdentityProvider.person?.lastName}',
-                              style: GoogleFonts.lato(
-                                  color: AppColors.black, fontSize: 15),
+                            Column(
+                              children: [
+                                Text(
+                                  '${userIdentityProvider.person?.firstName} ${userIdentityProvider.person?.lastName}',
+                                  style: GoogleFonts.lato(
+                                      color: AppColors.black, fontSize: 15),
+                                ),
+                                Text(
+                                  '${userIdentityProvider.person?.address?.formatAddress()}',
+                                  style: GoogleFonts.lato(
+                                      color: AppColors.black, fontSize: 15),
+                                ),
+                              ],
                             ),
-                            Text(
-                              '${userIdentityProvider.person?.address?.formatAddress()}',
-                              style: GoogleFonts.lato(
-                                  color: AppColors.black, fontSize: 15),
-                            ),
+                            if (userIdentityProvider.person?.address != null &&
+                                userIdentityProvider
+                                    .person!.address!.line1!.isNotEmpty)
+                              IconButton(
+                                onPressed: () => _showAddressModal(context,
+                                    userIdentityProvider.person?.address),
+                                icon: Icon(
+                                  Icons.edit,
+                                  size: 24,
+                                ),
+                                tooltip: 'Edit Address',
+                              ),
                           ],
                         )
                       ],
@@ -295,7 +310,7 @@ Future<void> _showMonthHistoryModal(BuildContext context,
               onPressed: () async {
                 if (userIdentityProvider.person?.address == null ||
                     userIdentityProvider.person!.address!.line1!.isEmpty) {
-                  _showAddressModal(context);
+                  _showAddressModal(context, null);
                 } else {
                   loadingNotifier.value = true;
                   _generateAndShareMonthHistoryPdf(
@@ -443,17 +458,21 @@ Future<void> _generateAndShareMonthHistoryPdf(BuildContext context,
       filename: 'ripple_donation_statement_$year-$month.pdf');
 }
 
-void _showAddressModal(BuildContext context) {
+void _showAddressModal(BuildContext context, Address? address) {
   final String info =
       'For legal and official use of this statement, such as for tax purposes, please enter your address. This is a one-time entry.';
-  TextEditingController addressLine1Controller = TextEditingController();
-  TextEditingController addressLine2Controller = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController zipController = TextEditingController();
+  TextEditingController addressLine1Controller =
+      TextEditingController(text: address?.line1);
+  TextEditingController addressLine2Controller =
+      TextEditingController(text: address?.line2);
+  TextEditingController cityController =
+      TextEditingController(text: address?.city);
+  TextEditingController zipController =
+      TextEditingController(text: address?.zip);
   final formKey = GlobalKey<FormState>();
   final loadingNotifier = ValueNotifier<bool>(false);
   final stateErrorNotifier = ValueNotifier<bool>(false);
-  final selectedStateNotifier = ValueNotifier<String?>(null);
+  final selectedStateNotifier = ValueNotifier<String?>(address?.state);
 
   final List<DropdownMenuEntry<String?>> states = [
     const DropdownMenuEntry(
@@ -671,7 +690,8 @@ void _showAddressModal(BuildContext context) {
                                         ? 'Please select your state'
                                         : null,
                                     dropdownMenuEntries: states,
-                                    initialSelection: selectedState,
+                                    initialSelection:
+                                        address?.state ?? selectedState,
                                     onSelected: (value) {
                                       selectedStateNotifier.value = value;
                                       stateErrorNotifier.value = value == null;
