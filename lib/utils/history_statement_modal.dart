@@ -229,7 +229,7 @@ Future<void> _showMonthHistoryModal(BuildContext context,
                       'Total Donations: \$${totalDonations.toStringAsFixed(2)}',
                       style: GoogleFonts.montserrat(
                         color: AppColors.black,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -259,14 +259,14 @@ Future<void> _showMonthHistoryModal(BuildContext context,
                                               monthHistory[index].donationDate),
                                           style: GoogleFonts.montserrat(
                                               color: AppColors.black,
-                                              fontSize: 16,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.w500),
                                         ),
                                         Text(
                                           monthHistory[index].charityName,
                                           style: GoogleFonts.montserrat(
                                               color: AppColors.black,
-                                              fontSize: 14),
+                                              fontSize: 13),
                                         ),
                                       ],
                                     ),
@@ -275,7 +275,7 @@ Future<void> _showMonthHistoryModal(BuildContext context,
                                     '\$${monthHistory[index].donationAmount.toStringAsFixed(2)}',
                                     style: GoogleFonts.montserrat(
                                         color: AppColors.black,
-                                        fontSize: 16,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.w500),
                                   )
                                 ],
@@ -298,8 +298,6 @@ Future<void> _showMonthHistoryModal(BuildContext context,
                   _showAddressModal(context);
                 } else {
                   loadingNotifier.value = true;
-                  showCustomSnackbar(
-                      context, 'Downloading statement now...', AppColors.green);
                   _generateAndShareMonthHistoryPdf(
                       context, provider, year, month);
                   await Future.delayed(Duration(seconds: 2));
