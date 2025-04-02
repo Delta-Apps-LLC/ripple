@@ -28,7 +28,7 @@ class _CharityListState extends State<CharityList> {
                   height: MediaQuery.of(context).size.height * 0.425,
                   child: ListView.separated(
                     separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(height: 18.0);
+                      return const SizedBox(height: 10.0);
                     },
                     itemCount: charityProvider.charities.length,
                     itemBuilder: (BuildContext context, int index) {

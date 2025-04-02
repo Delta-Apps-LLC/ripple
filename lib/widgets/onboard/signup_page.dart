@@ -236,7 +236,7 @@ class _SignupPageState extends State<SignupPage> {
                               title: Text(
                                 'I am over the age of 16',
                                 style: GoogleFonts.lato(
-                                    color: AppColors.black, fontSize: 18),
+                                    color: AppColors.black, fontSize: 15),
                               ),
                               activeColor: AppColors.green,
                               value: state.value,
@@ -247,7 +247,7 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             if (state.hasError)
                               Padding(
-                                padding: const EdgeInsets.only(left: 16.0),
+                                padding: const EdgeInsets.only(left: 18.0),
                                 child: Text(
                                   state.errorText ?? '',
                                   style: TextStyle(color: AppColors.errorRed),
@@ -272,7 +272,7 @@ class _SignupPageState extends State<SignupPage> {
                             title: Text(
                                 'I agree to the Terms and Conditions and to the Privacy Policy',
                                 style: GoogleFonts.lato(
-                                    color: AppColors.black, fontSize: 18)),
+                                    color: AppColors.black, fontSize: 15)),
                             activeColor: AppColors.green,
                             value: state.value,
                             controlAffinity: ListTileControlAffinity.leading,
@@ -282,7 +282,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           if (state.hasError)
                             Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
+                              padding: const EdgeInsets.only(left: 18.0),
                               child: Text(
                                 state.errorText ?? '',
                                 style: TextStyle(color: AppColors.errorRed),

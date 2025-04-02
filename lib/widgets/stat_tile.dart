@@ -19,8 +19,7 @@ class StatTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(4.0),
-      height: 150,
+      height: 120,
       width: isFullWidth
           ? MediaQuery.of(context).size.width
           : MediaQuery.of(context).size.width * 0.5,
@@ -48,12 +47,12 @@ class StatTile extends StatelessWidget {
                   stat,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
-                      color: AppColors.black, fontSize: 26),
+                      color: AppColors.black, fontSize: 22),
                 ),
                 Text(
                   label,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.lato(color: AppColors.black, fontSize: 18),
+                  style: GoogleFonts.lato(color: AppColors.black, fontSize: 16),
                 ),
               ],
             ),
@@ -65,7 +64,7 @@ class StatTile extends StatelessWidget {
               icon: const Icon(
                 Icons.info_outline,
                 color: AppColors.darkBlue,
-                size: 35,
+                size: 30,
               ),
               onPressed: () => showInfoModal(context, stat, description),
             ),

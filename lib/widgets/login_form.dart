@@ -40,6 +40,8 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            cursorColor: AppColors.black,
             decoration: InputDecoration(
               labelText: 'Email',
               labelStyle: TextStyle(color: AppColors.black),
@@ -65,6 +67,7 @@ class _LoginFormState extends State<LoginForm> {
           TextFormField(
             controller: _passwordController,
             keyboardType: TextInputType.visiblePassword,
+            cursorColor: AppColors.black,
             obscureText: _obscurePassword,
             decoration: InputDecoration(
               labelText: 'Password',

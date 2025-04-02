@@ -39,10 +39,10 @@ class _AnimatedProgressWaveState extends State<AnimatedProgressWave>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(left: 22.0, right: 22.0),
       child: Container(
-        width: 150,
-        height: 150,
+        width: 120,
+        height: 120,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           boxShadow: [
@@ -72,13 +72,13 @@ class _AnimatedProgressWaveState extends State<AnimatedProgressWave>
                         Text(
                           '\$${(widget.value).toStringAsFixed(2)}',
                           style: GoogleFonts.montserrat(
-                              color: AppColors.black, fontSize: 26),
+                              color: AppColors.black, fontSize: 22),
                         ),
                         IconButton(
                           icon: const Icon(
                             Icons.info_outline,
                             color: AppColors.darkBlue,
-                            size: 35,
+                            size: 30,
                           ),
                           onPressed: () => showInfoModal(
                               context,

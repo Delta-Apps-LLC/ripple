@@ -14,7 +14,7 @@ class CustomScaffold extends StatefulWidget {
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -63,7 +63,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ),
         body: Padding(
           padding: const EdgeInsets.only(
-              top: 12.0, bottom: 12.0, left: 18.0, right: 18),
+              top: 10.0, bottom: 12.0, left: 18.0, right: 18),
           child: pages[_selectedIndex],
         ),
         bottomNavigationBar: ClipRRect(

@@ -53,10 +53,10 @@ class CharityListItem extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: AppColors.lightGray.withOpacity(0.4),
-                radius: 30,
+                radius: 25,
                 child: Image.asset(
                   getCharityLogoAsset(charity.logo),
-                  height: 50,
+                  height: 25,
                 ),
               ),
               const SizedBox(
@@ -69,13 +69,13 @@ class CharityListItem extends StatelessWidget {
                     Text(
                       charity.charityName,
                       style: GoogleFonts.montserrat(
-                          color: AppColors.black, fontSize: 18),
+                          color: AppColors.black, fontSize: 16),
                     ),
                     Text(
                       'Cause: ${getCharityCause(charity.cause)}',
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lato(
-                          color: AppColors.black, fontSize: 16),
+                          color: AppColors.black, fontSize: 14),
                     ),
                   ],
                 ),
@@ -84,7 +84,7 @@ class CharityListItem extends StatelessWidget {
                 icon: const Icon(
                   Icons.info_outline,
                   color: AppColors.green,
-                  size: 30,
+                  size: 28,
                 ),
                 onPressed: () => showCharityDetails(context, charity),
               ),

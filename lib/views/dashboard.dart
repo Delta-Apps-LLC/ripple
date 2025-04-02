@@ -39,7 +39,6 @@ class DashboardView extends StatelessWidget {
                 PageTitle(
                   title: 'Your Dashboard',
                   hasRefresh: true,
-                  pageTitleSpacing: PageTitleSpacing.large,
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
@@ -67,7 +66,7 @@ class DashboardView extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        width: 4,
+                        width: 8,
                       ),
                       Expanded(
                         child: AnimatedProgressWave(
@@ -83,47 +82,44 @@ class DashboardView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 20,
                 ),
                 PageTitle(
                   title: 'Your Charities This Year',
-                  pageTitleSpacing: PageTitleSpacing.small,
                 ),
                 Consumer<DonationHistoryProvider>(
                   builder: (context, donationHistoryProvider, child) =>
                       Expanded(
-                    child: Flexible(
-                      child: Column(
-                          children: donationHistoryProvider.loadingHistory
-                              ? [
-                                  Center(
-                                    child: CircularProgressIndicator(
-                                      color: AppColors.darkBlue,
-                                    ),
-                                  )
-                                ]
-                              : [
-                                  Expanded(
-                                    child: ListView.separated(
-                                      separatorBuilder:
-                                          (BuildContext context, int index) {
-                                        return const SizedBox(height: 18.0);
-                                      },
-                                      itemCount: donationHistoryProvider
-                                          .charitiesThisYear.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return CharityListItem(
-                                          charity: donationHistoryProvider
-                                              .charitiesThisYear[index],
-                                          isSelected: false,
-                                          onTap: () {},
-                                        );
-                                      },
-                                    ),
+                    child: Column(
+                        children: donationHistoryProvider.loadingHistory
+                            ? [
+                                Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.darkBlue,
                                   ),
-                                ]),
-                    ),
+                                )
+                              ]
+                            : [
+                                Expanded(
+                                  child: ListView.separated(
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
+                                      return const SizedBox(height: 10.0);
+                                    },
+                                    itemCount: donationHistoryProvider
+                                        .charitiesThisYear.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return CharityListItem(
+                                        charity: donationHistoryProvider
+                                            .charitiesThisYear[index],
+                                        isSelected: false,
+                                        onTap: () {},
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ]),
                   ),
                 )
               ],

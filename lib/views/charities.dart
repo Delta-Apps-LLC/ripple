@@ -66,7 +66,6 @@ class _CharityViewState extends State<CharityView> {
           children: [
             PageTitle(
               title: 'Your Current Charity',
-              pageTitleSpacing: PageTitleSpacing.large,
             ),
             (charityProvider.isLoadingCharities)
                 ? Center(
@@ -84,7 +83,6 @@ class _CharityViewState extends State<CharityView> {
                   ),
             PageTitle(
               title: 'Other Charities',
-              pageTitleSpacing: PageTitleSpacing.small,
             ),
             CharityList(onCharitySelected: onCharitySelected),
             if (_loading)

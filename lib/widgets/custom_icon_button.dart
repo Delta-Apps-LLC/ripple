@@ -22,8 +22,8 @@ class CustomIconButton extends StatelessWidget {
     return Opacity(
       opacity: disabled ? 0.3 : 1.0,
       child: Container(
-        width: 300,
-        height: 50,
+        width: 275,
+        height: 40,
         padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -37,7 +37,7 @@ class CustomIconButton extends StatelessWidget {
           onPressed: disabled ? null : function,
           label: Text(text,
               style: GoogleFonts.raleway(
-                  textStyle: TextStyle(color: AppColors.black, fontSize: 22))),
+                  textStyle: TextStyle(color: AppColors.black, fontSize: 20))),
           style: buttonStyle,
           icon: icon,
         ),

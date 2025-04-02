@@ -98,6 +98,14 @@ class _OnboardViewState extends State<OnboardView> {
     });
   }
 
+  void clearForm() {
+    _firstNameController.clear();
+    _lastNameController.clear();
+    _emailController.clear();
+    _passwordController.clear();
+    _confirmPasswordController.clear();
+  }
+
   void _signUp(AuthProvider authProvider,
       UserIdentityProvider userIdentityProvider) async {
     if (_validateForm()) {
@@ -113,6 +121,7 @@ class _OnboardViewState extends State<OnboardView> {
           _emailController.text, _passwordController.text);
 
       if (err == null) {
+        clearForm();
         final newPerson = await userIdentityProvider.addPerson(person);
         if (newPerson == null) {
           final deleteRes =
@@ -301,7 +310,6 @@ class _OnboardViewState extends State<OnboardView> {
                                   // getAppBarTitle(),
                                   PageTitle(
                                     title: _getPageTitle(_currentPage),
-                                    pageTitleSpacing: PageTitleSpacing.small,
                                   ),
                                   pages[_currentPage].page,
                                   if (_loading)
