@@ -39,6 +39,7 @@ class DashboardView extends StatelessWidget {
                 PageTitle(
                   title: 'Your Dashboard',
                   hasRefresh: true,
+                  pageTitleSpacing: PageTitleSpacing.large,
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
@@ -84,7 +85,10 @@ class DashboardView extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                PageTitle(title: 'Your Charities This Year'),
+                PageTitle(
+                  title: 'Your Charities This Year',
+                  pageTitleSpacing: PageTitleSpacing.small,
+                ),
                 Consumer<DonationHistoryProvider>(
                   builder: (context, donationHistoryProvider, child) =>
                       Expanded(

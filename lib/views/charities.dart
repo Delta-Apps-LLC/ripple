@@ -64,7 +64,10 @@ class _CharityViewState extends State<CharityView> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            PageTitle(title: 'Your Current Charity'),
+            PageTitle(
+              title: 'Your Current Charity',
+              pageTitleSpacing: PageTitleSpacing.large,
+            ),
             (charityProvider.isLoadingCharities)
                 ? Center(
                     child: CircularProgressIndicator(
@@ -79,7 +82,10 @@ class _CharityViewState extends State<CharityView> {
                       onTap: () => onCharitySelected,
                     ),
                   ),
-            PageTitle(title: 'Other Charities'),
+            PageTitle(
+              title: 'Other Charities',
+              pageTitleSpacing: PageTitleSpacing.small,
+            ),
             CharityList(onCharitySelected: onCharitySelected),
             if (_loading)
               CircularProgressIndicator(

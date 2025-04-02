@@ -4,14 +4,29 @@ import 'package:provider/provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
 
+enum PageTitleSpacing { small, medium, large }
+
 class PageTitle extends StatelessWidget {
   const PageTitle({
     super.key,
     required this.title,
+    required this.pageTitleSpacing,
     this.hasRefresh = false,
   });
   final String title;
   final bool hasRefresh;
+  final PageTitleSpacing pageTitleSpacing;
+
+  Widget getSpacingBox() {
+    final height = switch (pageTitleSpacing) {
+      PageTitleSpacing.small => 8.0,
+      PageTitleSpacing.medium => 18.0,
+      PageTitleSpacing.large => 24.0,
+    };
+    return SizedBox(
+      height: height,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +63,8 @@ class PageTitle extends StatelessWidget {
               ),
           ],
         ),
+        getSpacingBox(),
         const Divider(),
-        const SizedBox(
-            // height: 14,
-            ),
       ],
     );
   }

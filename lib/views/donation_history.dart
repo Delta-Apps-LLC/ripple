@@ -48,7 +48,7 @@ class _DonationHistoryViewState extends State<DonationHistoryView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          PageTitle(title: 'Your Donation History'),
+          PageTitle(title: 'Your Donation History', pageTitleSpacing: PageTitleSpacing.large,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

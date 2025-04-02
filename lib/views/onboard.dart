@@ -299,7 +299,10 @@ class _OnboardViewState extends State<OnboardView> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   // getAppBarTitle(),
-                                  PageTitle(title: _getPageTitle(_currentPage)),
+                                  PageTitle(
+                                    title: _getPageTitle(_currentPage),
+                                    pageTitleSpacing: PageTitleSpacing.small,
+                                  ),
                                   pages[_currentPage].page,
                                   if (_loading)
                                     CircularProgressIndicator(
