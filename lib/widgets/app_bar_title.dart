@@ -8,19 +8,19 @@ Widget getAppBarTitle() {
     children: [
       Image.asset(
         'assets/images/ripple-logo-sm.png',
-        width: 24,
+        width: 22,
       ),
       Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(
-          height: 35,
-          width: 2,
+          height: 28,
+          width: 1.25,
           color: AppColors.black.withOpacity(0.3),
         ),
       ),
       Text(
         'ripple',
-        style: GoogleFonts.montserrat(color: AppColors.black, fontSize: 28),
+        style: GoogleFonts.montserrat(color: AppColors.black, fontSize: 25),
       )
     ],
   );
