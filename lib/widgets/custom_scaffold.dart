@@ -45,7 +45,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       const BottomNavigationBarItem(
         backgroundColor: AppColors.darkBlue,
         icon: Icon(Icons.monetization_on),
-        label: 'Transactions',
+        label: 'History',
       ),
       const BottomNavigationBarItem(
         backgroundColor: AppColors.darkBlue,
@@ -55,27 +55,34 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     ];
 
     return Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: getAppBarTitle(),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-              top: 10.0, bottom: 12.0, left: 18.0, right: 18),
-          child: pages[_selectedIndex],
-        ),
-        bottomNavigationBar: ClipRRect(
+      backgroundColor: AppColors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: getAppBarTitle(),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 0.0, left: 18.0, right: 18),
+        child: pages[_selectedIndex],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(20.0)),
           child: BottomNavigationBar(
             items: items,
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: AppColors.darkBlue,
-            selectedItemColor: AppColors.white,
+            backgroundColor: AppColors.lightGray,
+            selectedItemColor: AppColors.darkBlue,
             unselectedItemColor: AppColors.black,
+            selectedFontSize: 15,
+            selectedIconTheme: IconThemeData(size: 30),
             onTap: _onItemTapped,
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
