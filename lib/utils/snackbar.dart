@@ -5,6 +5,7 @@ import 'package:ripple/themes.dart';
 void showCustomSnackbar(
     BuildContext context, String message, Color backgroundColor) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    behavior: SnackBarBehavior.floating,
     content: Text(
       message,
       style: GoogleFonts.lato(color: AppColors.black, fontSize: 16),
