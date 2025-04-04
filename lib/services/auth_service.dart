@@ -41,6 +41,10 @@ class AuthService {
     await Supabase.instance.client.auth.signOut();
   }
 
+  Future<void> sendPasswordReset(String email) async {
+    await Supabase.instance.client.auth.resetPasswordForEmail(email);
+  }
+
   Future<AuthException?> deleteAuthUser(String userId) async {
     final supabaseUrl = dotenv.env["SUPABASE_URL"]!;
     final functionUrl = '$supabaseUrl/functions/v1/delete_user';

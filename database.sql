@@ -8,6 +8,7 @@ CREATE TABLE "user"
   email VARCHAR(50) UNIQUE NOT NULL,
   onboard_level TEXT NOT NULL,
   isdeleted BOOLEAN NOT NULL DEFAULT false,
+  deleted_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   addressline1 text null,
   addressline2 text null,

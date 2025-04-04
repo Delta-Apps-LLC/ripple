@@ -45,6 +45,10 @@ class AuthProvider with ChangeNotifier {
     await refresh();
   }
 
+  Future<void> sendPasswordReset() async {
+    await _authService.sendPasswordReset(_user?.email ?? '');
+  }
+
   Future<void> refresh() async {
     _loadingUser = true;
     _user = _authService.getCurrentUser();
