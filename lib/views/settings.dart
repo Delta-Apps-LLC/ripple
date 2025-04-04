@@ -125,11 +125,6 @@ class _SettingsViewState extends State<SettingsView> {
                                       Future<void> deleteAccount() async {
                                         await authProvider.deleteAuthUser(
                                             authProvider.user?.id ?? '');
-                                        // Navigator.pushReplacement(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) =>
-                                        //             CustomMaterialApp()));
                                       }
 
                                       await showConfirmDialog(
