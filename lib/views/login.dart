@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/views/onboard.dart';
-import 'package:ripple/widgets/custom_icon_button.dart';
-import 'package:ripple/widgets/login_form.dart';
+import 'package:ripple/widgets/misc/custom_icon_button.dart';
+import 'package:ripple/widgets/structure/login_form.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});

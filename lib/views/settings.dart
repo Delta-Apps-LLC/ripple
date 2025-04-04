@@ -5,8 +5,8 @@ import 'package:ripple/providers/auth_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/widgets/custom_material_app.dart';
-import 'package:ripple/widgets/page_title.dart';
+import 'package:ripple/widgets/structure/custom_material_app.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 import 'package:ripple/widgets/settings/bank_info.dart';
 import 'package:ripple/widgets/settings/pi_info.dart';
 import 'package:ripple/widgets/settings/roundup_info.dart';
@@ -90,15 +90,23 @@ class _SettingsViewState extends State<SettingsView> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(12),
-                        child: PiInfo(provider: userIdentityProvider),
+                        child: userIdentityProvider.loadingUser
+                            ? CircularProgressIndicator(
+                                color: AppColors.darkBlue,
+                              )
+                            : PiInfo(provider: userIdentityProvider),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
-                        child: RoundupInfo(provider: roundupSettingProvider),
+                        child: roundupSettingProvider.loadingRoundupSetting
+                            ? CircularProgressIndicator(
+                                color: AppColors.darkBlue,
+                              )
+                            : RoundupInfo(provider: roundupSettingProvider),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
-                        child: BankInfo(provider: roundupSettingProvider),
+                        child: /** TODO: loading ? circular : */ BankInfo(provider: roundupSettingProvider),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),

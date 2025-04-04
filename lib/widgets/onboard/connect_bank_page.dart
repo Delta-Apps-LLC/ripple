@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ripple/models/person.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/widgets/custom_scaffold.dart';
+import 'package:ripple/widgets/structure/custom_scaffold.dart';
 
 class ConnectBankPage extends StatefulWidget {
   const ConnectBankPage({super.key});

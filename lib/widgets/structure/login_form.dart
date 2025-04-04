@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ripple/providers/auth_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/snackbar.dart';
-import 'package:ripple/widgets/custom_icon_button.dart';
+import 'package:ripple/widgets/misc/custom_icon_button.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

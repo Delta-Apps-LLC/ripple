@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 
 String getCharityLogoAsset(CharityLogo logo) => switch (logo) {
       CharityLogo.stJude => 'assets/images/charities/st_jude_logo.png',
@@ -43,19 +44,12 @@ void showCharityDetails(BuildContext context, Charity charity) {
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
-                  charity.charityName,
-                  style: GoogleFonts.montserrat(
-                    color: AppColors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                PageTitle(title: charity.charityName),
                 Text(
                   'Cause: ${getCharityCause(charity.cause)}',
                   style: GoogleFonts.montserrat(
                     color: AppColors.black,
-                    fontSize: 20,
+                    fontSize: 18,
                   ),
                 ),
                 const SizedBox(height: 16),

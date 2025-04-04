@@ -6,10 +6,10 @@ import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/snackbar.dart';
-import 'package:ripple/widgets/charity_list.dart';
-import 'package:ripple/widgets/charity_list_item.dart';
-import 'package:ripple/widgets/custom_icon_button.dart';
-import 'package:ripple/widgets/page_title.dart';
+import 'package:ripple/widgets/lists/charity_list.dart';
+import 'package:ripple/widgets/lists/charity_list_item.dart';
+import 'package:ripple/widgets/misc/custom_icon_button.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 
 class CharityView extends StatefulWidget {
   const CharityView({super.key});

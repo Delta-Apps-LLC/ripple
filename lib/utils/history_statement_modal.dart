@@ -11,6 +11,7 @@ import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:provider/provider.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 
 void showStatementModal(
     BuildContext context, DonationHistoryProvider provider) {
@@ -29,15 +30,7 @@ void showStatementModal(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'Your Statements',
-                        style: GoogleFonts.montserrat(
-                          color: AppColors.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
+                      PageTitle(title: 'Your Statements'),
                       ...provider.years.map((year) {
                         return Column(
                           children: [
@@ -46,7 +39,6 @@ void showStatementModal(
                               style: GoogleFonts.lato(
                                   color: AppColors.black, fontSize: 18),
                             ),
-                            const Divider(),
                             const SizedBox(height: 10),
                             Wrap(
                               alignment: WrapAlignment.center,
@@ -81,7 +73,10 @@ void showStatementModal(
                                 );
                               }),
                             ),
-                            const SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: const Divider(),
+                            ),
                           ],
                         );
                       }),

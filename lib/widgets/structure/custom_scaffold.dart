@@ -4,7 +4,7 @@ import 'package:ripple/views/charities.dart';
 import 'package:ripple/views/dashboard.dart';
 import 'package:ripple/views/donation_history.dart';
 import 'package:ripple/views/settings.dart';
-import 'package:ripple/widgets/app_bar_title.dart';
+import 'package:ripple/widgets/misc/app_bar_title.dart';
 
 class CustomScaffold extends StatefulWidget {
   const CustomScaffold({super.key});
@@ -14,7 +14,7 @@ class CustomScaffold extends StatefulWidget {
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
     setState(() {

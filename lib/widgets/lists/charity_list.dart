@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/widgets/charity_list_item.dart';
+import 'package:ripple/widgets/lists/charity_list_item.dart';
 
 class CharityList extends StatefulWidget {
   const CharityList({super.key, required this.onCharitySelected});

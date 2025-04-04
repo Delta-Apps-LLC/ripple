@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/widgets/charity_list.dart';
+import 'package:ripple/widgets/lists/charity_list.dart';
 
 class SelectCharityPage extends StatelessWidget {
   const SelectCharityPage({super.key, required this.onCharitySelected});

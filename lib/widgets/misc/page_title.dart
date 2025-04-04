@@ -29,10 +29,14 @@ class PageTitle extends StatelessWidget {
                 size: 28,
                 color: Colors.transparent,
               ),
-            Text(
-              title,
-              style:
-                  GoogleFonts.montserrat(color: AppColors.black, fontSize: 24),
+            Expanded(
+              child: Text(
+                title,
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.montserrat(
+                    color: AppColors.black, fontSize: 24),
+              ),
             ),
             if (hasRefresh)
               Consumer<RoundupSettingProvider>(

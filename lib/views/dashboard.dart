@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/widgets/charity_list_item.dart';
-import 'package:ripple/widgets/page_title.dart';
-import 'package:ripple/widgets/progress_wave.dart';
-import 'package:ripple/widgets/stat_tile.dart';
+import 'package:ripple/widgets/lists/charity_list_item.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
+import 'package:ripple/widgets/misc/progress_wave.dart';
+import 'package:ripple/widgets/misc/stat_tile.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

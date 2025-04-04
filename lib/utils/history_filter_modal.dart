@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 
 void showFilterModal(BuildContext context, DonationHistoryProvider provider) {
   showModalBottomSheet(
@@ -44,15 +45,7 @@ void showFilterModal(BuildContext context, DonationHistoryProvider provider) {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'Filters',
-                    style: GoogleFonts.montserrat(
-                      color: AppColors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                  PageTitle(title: 'Filters'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

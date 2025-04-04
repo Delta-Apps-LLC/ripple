@@ -5,8 +5,8 @@ import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/history_filter_modal.dart';
 import 'package:ripple/utils/history_statement_modal.dart';
-import 'package:ripple/widgets/donation_history_item.dart';
-import 'package:ripple/widgets/page_title.dart';
+import 'package:ripple/widgets/lists/donation_history_item.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 
 class DonationHistoryView extends StatefulWidget {
   const DonationHistoryView({super.key});

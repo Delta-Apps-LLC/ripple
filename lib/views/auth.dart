@@ -5,7 +5,7 @@ import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/views/loading.dart';
 import 'package:ripple/views/login.dart';
 import 'package:ripple/views/onboard.dart';
-import 'package:ripple/widgets/custom_scaffold.dart';
+import 'package:ripple/widgets/structure/custom_scaffold.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});

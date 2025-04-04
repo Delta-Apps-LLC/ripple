@@ -11,13 +11,13 @@ import 'package:ripple/themes.dart';
 import 'package:ripple/utils/snackbar.dart';
 import 'package:ripple/views/auth.dart';
 import 'package:ripple/views/login.dart';
-import 'package:ripple/widgets/app_bar_title.dart';
-import 'package:ripple/widgets/custom_icon_button.dart';
+import 'package:ripple/widgets/misc/app_bar_title.dart';
+import 'package:ripple/widgets/misc/custom_icon_button.dart';
 import 'package:ripple/widgets/onboard/connect_bank_page.dart';
 import 'package:ripple/widgets/onboard/how_it_works_page.dart';
 import 'package:ripple/widgets/onboard/select_charity_page.dart';
 import 'package:ripple/widgets/onboard/signup_page.dart';
-import 'package:ripple/widgets/page_title.dart';
+import 'package:ripple/widgets/misc/page_title.dart';
 
 class OnboardView extends StatefulWidget {
   const OnboardView({super.key, this.level});
