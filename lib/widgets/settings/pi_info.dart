@@ -28,18 +28,25 @@ class _PiInfoState extends State<PiInfo> {
     };
     return Column(
       children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Your Information',
-            style: GoogleFonts.montserrat(
-              color: AppColors.black,
-              fontSize: 20,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Your Information',
+              style: GoogleFonts.montserrat(
+                color: AppColors.black,
+                fontSize: 20,
+              ),
             ),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.edit,
+                size: 24,
+              ),
+              tooltip: 'Edit Info',
+            ),
+          ],
         ),
         Container(
           width: MediaQuery.of(context).size.width,
@@ -110,19 +117,6 @@ class _PiInfoState extends State<PiInfo> {
                                 fontSize: 18,
                               ),
                             ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Edit',
-                      style: GoogleFonts.montserrat(
-                        color: AppColors.black,
-                        fontSize: 18,
-                      ),
                     ),
                   ),
                 ],

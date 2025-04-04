@@ -7,7 +7,9 @@ import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/widgets/custom_material_app.dart';
 import 'package:ripple/widgets/page_title.dart';
-import 'package:ripple/widgets/pi_info.dart';
+import 'package:ripple/widgets/settings/bank_info.dart';
+import 'package:ripple/widgets/settings/pi_info.dart';
+import 'package:ripple/widgets/settings/roundup_info.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -92,11 +94,11 @@ class _SettingsViewState extends State<SettingsView> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
-                        child: PiInfo(provider: userIdentityProvider),
+                        child: RoundupInfo(provider: roundupSettingProvider),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12),
-                        child: PiInfo(provider: userIdentityProvider),
+                        child: BankInfo(provider: roundupSettingProvider),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
