@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/stat_info_modal.dart';
+import 'package:ripple/utils/modals/stat_info_modal.dart';
 
 class StatTile extends StatelessWidget {
   const StatTile({

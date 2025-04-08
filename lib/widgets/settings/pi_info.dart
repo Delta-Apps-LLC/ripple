@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:ripple/providers/auth_provider.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/snackbar.dart';
+import 'package:ripple/utils/misc/snackbar.dart';
+import 'package:ripple/utils/modals/edit_pi_modal.dart';
 
 class PiInfo extends StatefulWidget {
   const PiInfo({super.key, required this.provider});
@@ -19,13 +20,14 @@ class _PiInfoState extends State<PiInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final String? addressStr = widget.provider.person?.address?.formatAddress();
     final Map<String, String> piInfo = {
       "Name":
           "${widget.provider.person?.firstName} ${widget.provider.person?.lastName}",
       "Email": "${widget.provider.person?.email}",
-      "Address":
-          "${widget.provider.person?.address?.line1}\n${widget.provider.person?.address?.line2}\n${widget.provider.person?.address?.city}, ${widget.provider.person?.address?.state} ${widget.provider.person?.address?.zip}",
+      "Address": addressStr?.isEmpty == true ? 'None' : '$addressStr',
     };
+
     return Column(
       children: [
         Row(
@@ -39,7 +41,7 @@ class _PiInfoState extends State<PiInfo> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () => showEditPiModal(context, widget.provider),
               icon: Icon(
                 Icons.edit,
                 size: 24,

@@ -8,7 +8,7 @@ import 'package:ripple/providers/auth_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/snackbar.dart';
+import 'package:ripple/utils/misc/snackbar.dart';
 import 'package:ripple/views/auth.dart';
 import 'package:ripple/views/login.dart';
 import 'package:ripple/widgets/misc/app_bar_title.dart';
@@ -225,13 +225,6 @@ class _OnboardViewState extends State<OnboardView> {
       );
       await userIdentityProvider.updatePerson(updatedPerson);
     }
-    // if (_currentPage < pages.length - 1) {
-    //   _pageController.animateToPage(
-    //     _currentPage + 1,
-    //     duration: const Duration(milliseconds: 300),
-    //     curve: Curves.easeInOut,
-    //   );
-    // }
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => AuthPage()));
     setState(() => _loading = false);
@@ -305,9 +298,8 @@ class _OnboardViewState extends State<OnboardView> {
                                   (context, roundupSettingProvider, child) =>
                                       Column(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // getAppBarTitle(),
                                   PageTitle(
                                     title: _getPageTitle(_currentPage),
                                   ),

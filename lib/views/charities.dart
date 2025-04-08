@@ -5,7 +5,7 @@ import 'package:ripple/models/roundup_setting.dart';
 import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/snackbar.dart';
+import 'package:ripple/utils/misc/snackbar.dart';
 import 'package:ripple/widgets/lists/charity_list.dart';
 import 'package:ripple/widgets/lists/charity_list_item.dart';
 import 'package:ripple/widgets/misc/custom_icon_button.dart';

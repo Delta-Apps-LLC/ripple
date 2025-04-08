@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ripple/models/person.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/views/onboard.dart';
 import 'package:ripple/widgets/misc/custom_icon_button.dart';
@@ -27,18 +28,6 @@ class LoginView extends StatelessWidget {
                     style: GoogleFonts.montserrat(
                         color: AppColors.black, fontSize: 40),
                   ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Text(
-                  //   textAlign: TextAlign.center,
-                  //   'Making waves for good,\npennies at a time',
-                  //   style: GoogleFonts.lato(
-                  //     color: AppColors.black,
-                  //     fontSize: 16,
-                  //     fontStyle: FontStyle.italic,
-                  //   ),
-                  // ),
                 ],
               ),
               const SizedBox(

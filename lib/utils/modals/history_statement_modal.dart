@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:intl/intl.dart';
+import 'package:ripple/constants.dart';
 import 'package:ripple/models/address.dart';
 import 'package:ripple/models/donation_history.dart';
 import 'package:ripple/models/person.dart';
@@ -303,8 +304,7 @@ Future<void> _showMonthHistoryModal(BuildContext context,
           actions: [
             TextButton(
               onPressed: () async {
-                if (userIdentityProvider.person?.address == null ||
-                    userIdentityProvider.person!.address!.line1!.isEmpty) {
+                if (hasNoAddress(userIdentityProvider)) {
                   _showAddressModal(context, null);
                 } else {
                   loadingNotifier.value = true;
@@ -346,6 +346,16 @@ Future<void> _showMonthHistoryModal(BuildContext context,
       );
     },
   );
+}
+
+bool hasNoAddress(UserIdentityProvider userIdentityProvider) {
+  final address = userIdentityProvider.person?.address;
+  return (address == null ||
+      (address.line1 == null || address.line1?.isEmpty == true) &&
+          (address.line2 == null || address.line2?.isEmpty == true) &&
+          (address.city == null || address.city?.isEmpty == true) &&
+          (address.state == null || address.state?.isEmpty == true) &&
+          (address.zip == null || address.zip?.isEmpty == true));
 }
 
 Future<void> _generateAndShareMonthHistoryPdf(BuildContext context,
@@ -468,63 +478,6 @@ void _showAddressModal(BuildContext context, Address? address) {
   final loadingNotifier = ValueNotifier<bool>(false);
   final stateErrorNotifier = ValueNotifier<bool>(false);
   final selectedStateNotifier = ValueNotifier<String?>(address?.state);
-
-  final List<DropdownMenuEntry<String?>> states = [
-    const DropdownMenuEntry(
-      value: null,
-      label: 'Select State',
-    ),
-    const DropdownMenuEntry(value: 'AL', label: 'AL'),
-    const DropdownMenuEntry(value: 'AK', label: 'AK'),
-    const DropdownMenuEntry(value: 'AZ', label: 'AZ'),
-    const DropdownMenuEntry(value: 'AR', label: 'AR'),
-    const DropdownMenuEntry(value: 'CA', label: 'CA'),
-    const DropdownMenuEntry(value: 'CO', label: 'CO'),
-    const DropdownMenuEntry(value: 'CT', label: 'CT'),
-    const DropdownMenuEntry(value: 'DE', label: 'DE'),
-    const DropdownMenuEntry(value: 'FL', label: 'FL'),
-    const DropdownMenuEntry(value: 'GA', label: 'GA'),
-    const DropdownMenuEntry(value: 'HI', label: 'HI'),
-    const DropdownMenuEntry(value: 'ID', label: 'ID'),
-    const DropdownMenuEntry(value: 'IL', label: 'IL'),
-    const DropdownMenuEntry(value: 'IN', label: 'IN'),
-    const DropdownMenuEntry(value: 'IA', label: 'IA'),
-    const DropdownMenuEntry(value: 'KS', label: 'KS'),
-    const DropdownMenuEntry(value: 'KY', label: 'KY'),
-    const DropdownMenuEntry(value: 'LA', label: 'LA'),
-    const DropdownMenuEntry(value: 'ME', label: 'ME'),
-    const DropdownMenuEntry(value: 'MD', label: 'MD'),
-    const DropdownMenuEntry(value: 'MA', label: 'MA'),
-    const DropdownMenuEntry(value: 'MI', label: 'MI'),
-    const DropdownMenuEntry(value: 'MN', label: 'MN'),
-    const DropdownMenuEntry(value: 'MS', label: 'MS'),
-    const DropdownMenuEntry(value: 'MO', label: 'MO'),
-    const DropdownMenuEntry(value: 'MT', label: 'MT'),
-    const DropdownMenuEntry(value: 'NE', label: 'NE'),
-    const DropdownMenuEntry(value: 'NV', label: 'NV'),
-    const DropdownMenuEntry(value: 'NH', label: 'NH'),
-    const DropdownMenuEntry(value: 'NJ', label: 'NJ'),
-    const DropdownMenuEntry(value: 'NM', label: 'NM'),
-    const DropdownMenuEntry(value: 'NY', label: 'NY'),
-    const DropdownMenuEntry(value: 'NC', label: 'NC'),
-    const DropdownMenuEntry(value: 'ND', label: 'ND'),
-    const DropdownMenuEntry(value: 'OH', label: 'OH'),
-    const DropdownMenuEntry(value: 'OK', label: 'OK'),
-    const DropdownMenuEntry(value: 'OR', label: 'OR'),
-    const DropdownMenuEntry(value: 'PA', label: 'PA'),
-    const DropdownMenuEntry(value: 'RI', label: 'RI'),
-    const DropdownMenuEntry(value: 'SC', label: 'SC'),
-    const DropdownMenuEntry(value: 'SD', label: 'SD'),
-    const DropdownMenuEntry(value: 'TN', label: 'TN'),
-    const DropdownMenuEntry(value: 'TX', label: 'TX'),
-    const DropdownMenuEntry(value: 'UT', label: 'UT'),
-    const DropdownMenuEntry(value: 'VT', label: 'VT'),
-    const DropdownMenuEntry(value: 'VA', label: 'VA'),
-    const DropdownMenuEntry(value: 'WA', label: 'WA'),
-    const DropdownMenuEntry(value: 'WV', label: 'WV'),
-    const DropdownMenuEntry(value: 'WI', label: 'WI'),
-    const DropdownMenuEntry(value: 'WY', label: 'WY'),
-  ];
 
   Future<void> submitAddress(UserIdentityProvider provider) async {
     stateErrorNotifier.value = selectedStateNotifier.value == null;

@@ -8,7 +8,7 @@ class HowItWorksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const howItWorks =
-        "Every day, ripple will track the transactions from your connected bank account and round up that transaction to the nearest dollar.\n\n To minimize payment processing fees, ripple will withdraw that \$5 roundup from your bank and donate it to the charity you have selected once your roundups exceed the minimum donation threshold of \$5.\n\nIn your account settings, you can change the threshold, roundup, and monthly cap.";
+        "Every day, ripple will track the transactions from your connected accounts and round up those transactions to the nearest dollar.\n\nTo minimize payment processing fees, ripple waits to donate those round-ups from your bank account until your round-ups exceed the minimum donation threshold of \$5.\n\nAll round-up settings can be found and edited on the Settings page in your account.";
     return Padding(
       padding: const EdgeInsets.only(left: 12.0, right: 12.0),
       child: Column(
@@ -19,7 +19,7 @@ class HowItWorksPage extends StatelessWidget {
               howItWorks,
               style: GoogleFonts.lato(color: AppColors.black, fontSize: 18),
             ),
-          )
+          ),
         ],
       ),
     );

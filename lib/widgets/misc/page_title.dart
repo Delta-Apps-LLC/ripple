@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/snackbar.dart';
+import 'package:ripple/utils/misc/snackbar.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle({

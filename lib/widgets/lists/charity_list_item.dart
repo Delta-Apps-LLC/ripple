@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/charity_modal.dart';
+import 'package:ripple/utils/modals/charity_modal.dart';
 
 class CharityListItem extends StatelessWidget {
   final Charity charity;

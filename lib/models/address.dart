@@ -14,7 +14,32 @@ class Address {
   });
 
   String formatAddress() {
-    if (line1 == null) return '';
-    return '$line1\n$line2\n$city, $state $zip';
+    final List<String> addressParts = [];
+
+    if (line1 != null && line1!.isNotEmpty) {
+      addressParts.add(line1!);
+    }
+    if (line2 != null && line2!.isNotEmpty) {
+      addressParts.add(line2!);
+    }
+    if ((city != null && city!.isNotEmpty) ||
+        (state != null && state!.isNotEmpty) ||
+        (zip != null && zip!.isNotEmpty)) {
+      final List<String> cityStateZipParts = [];
+      if (city != null && city!.isNotEmpty) {
+        cityStateZipParts.add(city!);
+      }
+      if (state != null && state!.isNotEmpty) {
+        cityStateZipParts.add(state!);
+      }
+      if (zip != null && zip!.isNotEmpty) {
+        cityStateZipParts.add(zip!);
+      }
+      if (cityStateZipParts.isNotEmpty) {
+        addressParts.add(cityStateZipParts.join(', '));
+      }
+    }
+
+    return addressParts.join('\n');
   }
 }

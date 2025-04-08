@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ripple/providers/donation_history_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/history_filter_modal.dart';
-import 'package:ripple/utils/history_statement_modal.dart';
+import 'package:ripple/utils/modals/history_filter_modal.dart';
+import 'package:ripple/utils/modals/history_statement_modal.dart';
 import 'package:ripple/widgets/lists/donation_history_item.dart';
 import 'package:ripple/widgets/misc/page_title.dart';
 
