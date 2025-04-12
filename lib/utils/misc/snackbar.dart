@@ -8,7 +8,7 @@ void showCustomSnackbar(
     behavior: SnackBarBehavior.floating,
     content: Text(
       message,
-      style: GoogleFonts.lato(color: AppColors.black, fontSize: 16),
+      style: GoogleFonts.lato(color: AppColors.white, fontSize: 16),
     ),
     duration: const Duration(seconds: 4),
     backgroundColor: backgroundColor,

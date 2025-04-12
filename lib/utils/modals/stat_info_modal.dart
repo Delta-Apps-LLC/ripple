@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/widgets/misc/page_title.dart';
 
-void showInfoModal(BuildContext context, String stat, String description) {
+void showInfoModal(BuildContext context, String? stat, String description) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -18,15 +18,16 @@ void showInfoModal(BuildContext context, String stat, String description) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 PageTitle(title: 'What does this mean?'),
-                Text(
-                  stat,
-                  style: GoogleFonts.montserrat(
-                    color: AppColors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
+                if (stat != null)
+                  Text(
+                    stat,
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
+                if (stat != null) const SizedBox(height: 16),
                 Text(
                   description,
                   style: GoogleFonts.lato(color: AppColors.black, fontSize: 18),

@@ -41,8 +41,10 @@ class RoundupSettingService {
         charityId: map['charityid'],
         isActive: map['isactive'],
         monthlyCap: map['monthlycap'],
+        hasMonthlyCap: map['has_monthly_cap'],
         donationThreshold: map['donation_threshold'],
         roundupAmount: map['roundup_amount'],
+        roundupMode: parseRoundupMode(map['roundup_mode']),
         runningTotal: map['running_total'] is int
             ? (map['running_total'] as int).toDouble()
             : (map['running_total'] as double).toDouble(),
@@ -50,6 +52,23 @@ class RoundupSettingService {
             ? (map['totalytd'] as int).toDouble()
             : (map['totalytd'] as double).toDouble(),
       );
+
+  RoundupMode parseRoundupMode(String mode) {
+    return switch (mode) {
+      'automatic' => RoundupMode.automatic,
+      'manual' => RoundupMode.manual,
+      'random' => RoundupMode.random,
+      String() => RoundupMode.automatic,
+    };
+  }
+
+  String roundupModeToString(RoundupMode mode) {
+    return switch (mode) {
+      RoundupMode.automatic => 'automatic',
+      RoundupMode.manual => 'manual',
+      RoundupMode.random => 'random',
+    };
+  }
 
   Map<String, dynamic> _newRoundupSettingToMap(RoundupSetting setting) => {
         'userid': setting.userId,
@@ -62,9 +81,11 @@ class RoundupSettingService {
         'charityid': setting.charityId,
         'isactive': setting.isActive,
         'monthlycap': setting.monthlyCap,
+        'has_monthly_cap': setting.hasMonthlyCap,
         'donation_threshold': setting.donationThreshold,
         'roundup_amount': setting.roundupAmount,
         'running_total': setting.runningTotal,
         'totalytd': setting.totalYtd,
+        'roundup_mode': roundupModeToString(setting.roundupMode!),
       };
 }

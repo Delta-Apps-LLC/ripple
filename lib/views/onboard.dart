@@ -177,6 +177,8 @@ class _OnboardViewState extends State<OnboardView> {
               donationThreshold:
                   roundupSettingProvider.roundupSetting!.donationThreshold,
               monthlyCap: roundupSettingProvider.roundupSetting!.monthlyCap,
+              hasMonthlyCap: roundupSettingProvider.roundupSetting!.hasMonthlyCap,
+              roundupMode: roundupSettingProvider.roundupSetting!.roundupMode,
             );
       await roundupSettingProvider.setRoundupSetting(roundupSettings);
       setState(() => _loading = false);

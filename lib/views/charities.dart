@@ -42,6 +42,8 @@ class _CharityViewState extends State<CharityView> {
         donationThreshold:
             roundupSettingProvider.roundupSetting!.donationThreshold,
         monthlyCap: roundupSettingProvider.roundupSetting!.monthlyCap,
+        hasMonthlyCap: roundupSettingProvider.roundupSetting!.hasMonthlyCap,
+        roundupMode: roundupSettingProvider.roundupSetting!.roundupMode,
       );
       await roundupSettingProvider.setRoundupSetting(newSetting);
       setState(() {

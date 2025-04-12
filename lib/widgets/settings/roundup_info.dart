@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/utils/modals/edit_roundup_modal.dart';
 
 class RoundupInfo extends StatefulWidget {
   const RoundupInfo({super.key, required this.provider});
@@ -21,10 +22,10 @@ class _RoundupInfoState extends State<RoundupInfo> {
           "\$${widget.provider.roundupSetting!.roundupAmount!.toStringAsFixed(2)}",
       "Donation threshold":
           "\$${widget.provider.roundupSetting!.donationThreshold!.toStringAsFixed(2)}",
-      "Monthly cap": widget.provider.roundupSetting!.monthlyCap == null
-          ? 'None'
-          : "\$${widget.provider.roundupSetting!.monthlyCap!.toStringAsFixed(2)}",
-      "Round-up type": "Automatic",
+      "Monthly cap": widget.provider.roundupSetting!.hasMonthlyCap!
+          ? "\$${widget.provider.roundupSetting!.monthlyCap!.toStringAsFixed(2)}"
+          : 'None',
+      "Round-up mode": "Automatic",
       "Round-ups active":
           widget.provider.roundupSetting!.isActive ? 'Yes' : 'No',
     };
@@ -41,7 +42,7 @@ class _RoundupInfoState extends State<RoundupInfo> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () => showEditRoundupModal(context, widget.provider),
               icon: Icon(
                 Icons.edit,
                 size: 24,
