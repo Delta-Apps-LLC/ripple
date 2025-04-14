@@ -162,13 +162,13 @@ class _OnboardViewState extends State<OnboardView> {
       final roundupSettings = (roundupSettingProvider.roundupSetting == null)
           ? RoundupSetting(
               userId: userIdentityProvider.person!.id!,
-              charityId: _selectedCharity!.id!,
+              currentCharityId: _selectedCharity!.id!,
               isActive: true,
             )
           : RoundupSetting(
               id: roundupSettingProvider.roundupSetting!.id,
               userId: userIdentityProvider.person!.id!,
-              charityId: _selectedCharity!.id!,
+              currentCharityId: _selectedCharity!.id!,
               isActive: true,
               totalYtd: roundupSettingProvider.roundupSetting!.totalYtd,
               runningTotal: roundupSettingProvider.roundupSetting!.runningTotal,

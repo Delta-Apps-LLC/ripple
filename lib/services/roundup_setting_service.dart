@@ -38,7 +38,7 @@ class RoundupSettingService {
       RoundupSetting(
         id: map['roundupid'],
         userId: map['userid'],
-        charityId: map['charityid'],
+        currentCharityId: map['current_charity_id'],
         isActive: map['isactive'],
         monthlyCap: map['monthlycap'],
         hasMonthlyCap: map['has_monthly_cap'],
@@ -72,13 +72,13 @@ class RoundupSettingService {
 
   Map<String, dynamic> _newRoundupSettingToMap(RoundupSetting setting) => {
         'userid': setting.userId,
-        'charityid': setting.charityId,
+        'current_charity_id': setting.currentCharityId,
         'isactive': setting.isActive,
       };
 
   Map<String, dynamic> _roundupSettingToMap(RoundupSetting setting) => {
         'userid': setting.userId,
-        'charityid': setting.charityId,
+        'current_charity_id': setting.currentCharityId,
         'isactive': setting.isActive,
         'monthlycap': setting.monthlyCap,
         'has_monthly_cap': setting.hasMonthlyCap,

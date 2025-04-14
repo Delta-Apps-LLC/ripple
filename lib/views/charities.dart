@@ -34,7 +34,7 @@ class _CharityViewState extends State<CharityView> {
       final newSetting = RoundupSetting(
         id: roundupSettingProvider.roundupSetting!.id,
         userId: roundupSettingProvider.roundupSetting!.userId,
-        charityId: _selectedCharity!.id!,
+        currentCharityId: _selectedCharity!.id!,
         isActive: true,
         totalYtd: roundupSettingProvider.roundupSetting!.totalYtd,
         runningTotal: roundupSettingProvider.roundupSetting!.runningTotal,

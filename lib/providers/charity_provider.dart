@@ -20,7 +20,7 @@ class CharityProvider with ChangeNotifier {
   bool get isLoadingCharities => _isLoadingCharities;
 
   Charity get currentCharity => _charities.firstWhere(
-      (c) => c.id == _roundupSettingProvider.roundupSetting?.charityId);
+      (c) => c.id == _roundupSettingProvider.roundupSetting?.currentCharityId);
 
   Future<void> refresh() async {
     _isLoadingCharities = true;

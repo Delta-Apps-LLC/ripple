@@ -101,7 +101,7 @@ class _PiInfoState extends State<PiInfo> {
                     builder: (context, authProvider, child) => TextButton(
                       onPressed: () async {
                         setState(() => loading = true);
-                        await authProvider.sendPasswordReset();
+                        // await authProvider.sendPasswordReset();
                         setState(() => loading = false);
                         showCustomSnackbar(
                             context,

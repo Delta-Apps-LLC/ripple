@@ -31,6 +31,15 @@ CREATE TABLE CHARITY
   PRIMARY KEY (charityid)
 );
 
+CREATE TABLE USER_CHARITY
+(
+  userid INT NOT NULL,
+  charityid INT NOT NULL,
+  PRIMARY KEY (userid, charityid),
+  FOREIGN KEY (userid) REFERENCES "user"(userid) ON DELETE CASCADE,
+  FOREIGN KEY (charityid) REFERENCES charity(charityid) ON DELETE CASCADE
+);
+
 CREATE TABLE ROUNDUP_SETTING
 (
   roundupid SERIAL NOT NULL,

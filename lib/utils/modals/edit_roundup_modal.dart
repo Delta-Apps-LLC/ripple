@@ -38,7 +38,7 @@ Future<void> showEditRoundupModal(
       final updatedSetting = RoundupSetting(
         id: provider.roundupSetting?.id,
         userId: provider.roundupSetting!.userId,
-        charityId: provider.roundupSetting!.charityId,
+        currentCharityId: provider.roundupSetting!.currentCharityId,
         roundupAmount: roundupAmountNotifier.value,
         donationThreshold: thresholdNotifier.value,
         monthlyCap: capNotifier.value,

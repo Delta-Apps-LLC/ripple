@@ -3,7 +3,7 @@ enum RoundupMode { automatic, manual, random }
 class RoundupSetting {
   final int? id;
   final int userId;
-  final int charityId;
+  final int currentCharityId;
   final int? monthlyCap;
   final bool? hasMonthlyCap;
   final double? totalYtd;
@@ -16,7 +16,7 @@ class RoundupSetting {
   RoundupSetting({
     this.id,
     required this.userId,
-    required this.charityId,
+    required this.currentCharityId,
     this.monthlyCap,
     this.hasMonthlyCap,
     this.totalYtd,
