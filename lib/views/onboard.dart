@@ -5,7 +5,7 @@ import 'package:ripple/models/onboard_page.dart';
 import 'package:ripple/models/person.dart';
 import 'package:ripple/models/roundup_setting.dart';
 import 'package:ripple/providers/auth_provider.dart';
-import 'package:ripple/providers/roundup_setting_provider.dart';
+import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/providers/user_identity_provider.dart';
 import 'package:ripple/themes.dart';
 import 'package:ripple/utils/misc/snackbar.dart';
@@ -67,7 +67,7 @@ class _OnboardViewState extends State<OnboardView> {
       ),
       OnboardPage(
         page: ConnectBankPage(),
-        hasBackButton: true,
+        hasBackButton: false,
         hasNextButton: false,
       ),
     ];
@@ -153,36 +153,24 @@ class _OnboardViewState extends State<OnboardView> {
   }
 
   void setCharity(UserIdentityProvider userIdentityProvider,
-      RoundupSettingProvider roundupSettingProvider) async {
+      CharityProvider charityProvider) async {
     if (_selectedCharity == null) {
       showCustomSnackbar(context, 'You need to select a charity to continue',
           AppColors.errorRed);
     } else {
       setState(() => _loading = true);
-      final roundupSettings = (roundupSettingProvider.roundupSetting == null)
-          ? RoundupSetting(
-              userId: userIdentityProvider.person!.id!,
-              currentCharityId: _selectedCharity!.id!,
-              isActive: true,
-            )
-          : RoundupSetting(
-              id: roundupSettingProvider.roundupSetting!.id,
-              userId: userIdentityProvider.person!.id!,
-              currentCharityId: _selectedCharity!.id!,
-              isActive: true,
-              totalYtd: roundupSettingProvider.roundupSetting!.totalYtd,
-              runningTotal: roundupSettingProvider.roundupSetting!.runningTotal,
-              roundupAmount:
-                  roundupSettingProvider.roundupSetting!.roundupAmount,
-              donationThreshold:
-                  roundupSettingProvider.roundupSetting!.donationThreshold,
-              monthlyCap: roundupSettingProvider.roundupSetting!.monthlyCap,
-              hasMonthlyCap: roundupSettingProvider.roundupSetting!.hasMonthlyCap,
-              roundupMode: roundupSettingProvider.roundupSetting!.roundupMode,
-            );
-      await roundupSettingProvider.setRoundupSetting(roundupSettings);
+      final roundupSettings = RoundupSetting(
+        userId: userIdentityProvider.person!.id!,
+      );
+      final res = await charityProvider.insertFirstUserCharity(
+          _selectedCharity!.id!, roundupSettings);
       setState(() => _loading = false);
-      incrementPage(userIdentityProvider);
+      if (res == null) {
+        incrementPage(userIdentityProvider);
+      } else {
+        showCustomSnackbar(context, 'Something went wrong, please try again',
+            AppColors.errorRed);
+      }
     }
   }
 
@@ -195,14 +183,14 @@ class _OnboardViewState extends State<OnboardView> {
   void determineNextFunction(
       AuthProvider authProvider,
       UserIdentityProvider userIdentityProvider,
-      RoundupSettingProvider roundupSettingProvider) {
+      CharityProvider charityProvider) {
     switch (_currentPage) {
       case 0:
         _signUp(authProvider, userIdentityProvider);
       case 1:
         incrementPage(userIdentityProvider);
       case 2:
-        setCharity(userIdentityProvider, roundupSettingProvider);
+        setCharity(userIdentityProvider, charityProvider);
       case 3:
         print('Connect bank page');
     }
@@ -295,10 +283,9 @@ class _OnboardViewState extends State<OnboardView> {
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
                                 minHeight: constraints.maxHeight),
-                            child: Consumer<RoundupSettingProvider>(
-                              builder:
-                                  (context, roundupSettingProvider, child) =>
-                                      Column(
+                            child: Consumer<CharityProvider>(
+                              builder: (context, charityProvider, child) =>
+                                  Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -338,7 +325,7 @@ class _OnboardViewState extends State<OnboardView> {
                                                     determineNextFunction(
                                                         authProvider,
                                                         userIdentityProvider,
-                                                        roundupSettingProvider),
+                                                        charityProvider),
                                               ),
                                             )
                                           ],
@@ -354,18 +341,30 @@ class _OnboardViewState extends State<OnboardView> {
                                               ],
                                               function: decrementPage,
                                             )
-                                          : CustomIconButton(
-                                              text: 'Next',
-                                              colors: [
-                                                AppColors.lightGray,
-                                                AppColors.purple
-                                              ],
-                                              function: () =>
-                                                  determineNextFunction(
-                                                      authProvider,
-                                                      userIdentityProvider,
-                                                      roundupSettingProvider),
-                                            ),
+                                          : (!pages[_currentPage]
+                                                      .hasBackButton &&
+                                                  !pages[_currentPage]
+                                                      .hasNextButton)
+                                              ? CustomIconButton(
+                                                  text: '',
+                                                  colors: [
+                                                    Colors.transparent,
+                                                    Colors.transparent,
+                                                  ],
+                                                  function: null,
+                                                )
+                                              : CustomIconButton(
+                                                  text: 'Next',
+                                                  colors: [
+                                                    AppColors.lightGray,
+                                                    AppColors.purple
+                                                  ],
+                                                  function: () =>
+                                                      determineNextFunction(
+                                                          authProvider,
+                                                          userIdentityProvider,
+                                                          charityProvider),
+                                                ),
                                 ],
                               ),
                             ),

@@ -38,7 +38,7 @@ Future<void> showEditRoundupModal(
       final updatedSetting = RoundupSetting(
         id: provider.roundupSetting?.id,
         userId: provider.roundupSetting!.userId,
-        currentCharityId: provider.roundupSetting!.currentCharityId,
+        nextCharityIndex: provider.roundupSetting!.nextCharityIndex,
         roundupAmount: roundupAmountNotifier.value,
         donationThreshold: thresholdNotifier.value,
         monthlyCap: capNotifier.value,
@@ -48,7 +48,7 @@ Future<void> showEditRoundupModal(
         roundupMode: selectedModeNotifier.value,
         isActive: isActiveNotifier.value,
       );
-      await provider.setRoundupSetting(updatedSetting);
+      await provider.updateRoundupSetting(updatedSetting);
       loadingNotifier.value = false;
       Navigator.pop(context);
       showCustomSnackbar(

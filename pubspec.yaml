@@ -44,6 +44,7 @@ dependencies:
   printing: ^5.14.2
   intl: ^0.20.2
   input_quantity: ^2.5.1
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

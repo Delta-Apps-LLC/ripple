@@ -6,8 +6,10 @@ import 'package:ripple/themes.dart';
 import 'package:ripple/widgets/lists/charity_list_item.dart';
 
 class CharityList extends StatefulWidget {
-  const CharityList({super.key, required this.onCharitySelected});
-  final Function(Charity?) onCharitySelected;
+  const CharityList(
+      {super.key, this.onCharitySelected, this.displayStar = false});
+  final Function(Charity?)? onCharitySelected;
+  final bool displayStar;
 
   @override
   State<CharityList> createState() => _CharityListState();
@@ -35,13 +37,16 @@ class _CharityListState extends State<CharityList> {
                       return CharityListItem(
                         charity: charityProvider.charities[index],
                         isSelected: _selectedCharityIndex == index,
-                        onTap: () {
-                          setState(() {
-                            _selectedCharityIndex = index;
-                            widget.onCharitySelected(
-                                charityProvider.charities[index]);
-                          });
-                        },
+                        displayStar: widget.displayStar,
+                        onTap: widget.onCharitySelected != null
+                            ? () {
+                                setState(() {
+                                  _selectedCharityIndex = index;
+                                  widget.onCharitySelected!(
+                                      charityProvider.charities[index]);
+                                });
+                              }
+                            : null,
                       );
                     },
                   ),

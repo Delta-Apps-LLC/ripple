@@ -34,11 +34,18 @@ class RoundupSettingService {
     return res;
   }
 
+  Future<void> resetNextCharityIndex(int roundupId) async {
+    await Supabase.instance.client
+        .from(_roundupTable)
+        .update({'next_charity_index': 0})
+        .eq('roundupId', roundupId);
+  }
+
   RoundupSetting _mapToRoundupSetting(Map<String, dynamic> map) =>
       RoundupSetting(
         id: map['roundupid'],
         userId: map['userid'],
-        currentCharityId: map['current_charity_id'],
+        nextCharityIndex: map['next_charity_index'],
         isActive: map['isactive'],
         monthlyCap: map['monthlycap'],
         hasMonthlyCap: map['has_monthly_cap'],
@@ -72,13 +79,11 @@ class RoundupSettingService {
 
   Map<String, dynamic> _newRoundupSettingToMap(RoundupSetting setting) => {
         'userid': setting.userId,
-        'current_charity_id': setting.currentCharityId,
-        'isactive': setting.isActive,
       };
 
   Map<String, dynamic> _roundupSettingToMap(RoundupSetting setting) => {
         'userid': setting.userId,
-        'current_charity_id': setting.currentCharityId,
+        'next_charity_index': setting.nextCharityIndex,
         'isactive': setting.isActive,
         'monthlycap': setting.monthlyCap,
         'has_monthly_cap': setting.hasMonthlyCap,

@@ -1,61 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:ripple/models/charity.dart';
+import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/utils/misc/parse_charity_info.dart';
+import 'package:ripple/utils/misc/snackbar.dart';
 import 'package:ripple/utils/modals/charity_modal.dart';
 
-class CharityListItem extends StatelessWidget {
+class CharityListItem extends StatefulWidget {
   final Charity charity;
   final bool isSelected;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
+  final bool displayStar;
 
   const CharityListItem({
     super.key,
     required this.charity,
     required this.isSelected,
-    required this.onTap,
+    this.onTap,
+    this.displayStar = false,
   });
 
   @override
+  State<CharityListItem> createState() => _CharityListItemState();
+}
+
+class _CharityListItemState extends State<CharityListItem> {
+  bool isInQueue(CharityProvider provider) {
+    final index = provider.charityQueue
+        .indexWhere((charity) => charity.id == widget.charity.id);
+    return index != -1;
+  }
+
+  void addOrRemoveFromQueue(CharityProvider charityProvider) {
+    if (isInQueue(charityProvider)) {
+      if (charityProvider.charityQueue.length == 1) {
+        showCustomSnackbar(
+            context,
+            'You must keep at least one charity in the queue',
+            AppColors.errorRed);
+      } else {
+        charityProvider.removeFromQueue(widget.charity);
+      }
+    } else {
+      if (charityProvider.charityQueue.length == 4) {
+        showCustomSnackbar(
+            context,
+            'You cannot have more than four charities in your queue',
+            AppColors.errorRed);
+      } else {
+        charityProvider.addToQueue(widget.charity);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String getCharityLogoAsset(CharityLogo logo) => switch (logo) {
-          CharityLogo.stJude => 'assets/images/charities/st_jude_logo.png',
-          CharityLogo.feedingAmerica =>
-            'assets/images/charities/feeding_america_logo.png',
-          CharityLogo.our => 'assets/images/charities/our_logo.png',
-          CharityLogo.salvationArmy =>
-            'assets/images/charities/salvation_army_logo.png',
-          CharityLogo.americanCancerSociety =>
-            'assets/images/charities/am_cancer_society_logo.png',
-        };
-
-    String getCharityCause(CharityCause cause) => switch (cause) {
-          CharityCause.agriculture => 'Agriculture',
-          CharityCause.health => 'Health',
-          CharityCause.humanitarian => 'Humanitarian',
-          CharityCause.trafficking => 'Trafficking',
-          CharityCause.other => 'Other',
-        };
-
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? AppColors.lightBlue : Colors.transparent,
-            width: 2.0,
+            color: widget.isSelected ? AppColors.lightBlue : Colors.transparent,
+            width: 1.5,
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.symmetric(vertical: 6.0),
           child: Row(
             children: [
               CircleAvatar(
                 backgroundColor: AppColors.lightGray.withOpacity(0.4),
                 radius: 25,
                 child: Image.asset(
-                  getCharityLogoAsset(charity.logo),
+                  getCharityLogoAsset(widget.charity.logo),
                   height: 25,
                 ),
               ),
@@ -67,12 +87,13 @@ class CharityListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      charity.charityName,
+                      widget.charity.charityName,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.montserrat(
                           color: AppColors.black, fontSize: 16),
                     ),
                     Text(
-                      'Cause: ${getCharityCause(charity.cause)}',
+                      'Cause: ${getCharityCause(widget.charity.cause)}',
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.lato(
                           color: AppColors.black, fontSize: 14),
@@ -86,8 +107,20 @@ class CharityListItem extends StatelessWidget {
                   color: AppColors.green,
                   size: 28,
                 ),
-                onPressed: () => showCharityDetails(context, charity),
+                onPressed: () => showCharityDetails(context, widget.charity),
               ),
+              if (widget.displayStar)
+                Consumer<CharityProvider>(
+                  builder: (context, charityProvider, child) => IconButton(
+                      icon: Icon(
+                        isInQueue(charityProvider)
+                            ? Icons.star
+                            : Icons.star_outline,
+                        color: AppColors.green,
+                        size: 28,
+                      ),
+                      onPressed: () => addOrRemoveFromQueue(charityProvider)),
+                ),
             ],
           ),
         ),

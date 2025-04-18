@@ -7,13 +7,13 @@ class CustomIconButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.colors,
-    required this.function,
+    this.function,
     this.icon,
     this.disabled = false,
   });
   final String text;
   final List<Color> colors;
-  final VoidCallback function;
+  final VoidCallback? function;
   final bool disabled;
   final Icon? icon;
 

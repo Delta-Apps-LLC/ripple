@@ -27,7 +27,7 @@ class _RoundupInfoState extends State<RoundupInfo> {
           : 'None',
       "Round-up mode": "Automatic",
       "Round-ups active":
-          widget.provider.roundupSetting!.isActive ? 'Yes' : 'No',
+          widget.provider.roundupSetting!.isActive! ? 'Yes' : 'No',
     };
     return Column(
       children: [

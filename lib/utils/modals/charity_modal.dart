@@ -2,26 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/utils/misc/parse_charity_info.dart';
 import 'package:ripple/widgets/misc/page_title.dart';
-
-String getCharityLogoAsset(CharityLogo logo) => switch (logo) {
-      CharityLogo.stJude => 'assets/images/charities/st_jude_logo.png',
-      CharityLogo.feedingAmerica =>
-        'assets/images/charities/feeding_america_logo.png',
-      CharityLogo.our => 'assets/images/charities/our_logo.png',
-      CharityLogo.salvationArmy =>
-        'assets/images/charities/salvation_army_logo.png',
-      CharityLogo.americanCancerSociety =>
-        'assets/images/charities/am_cancer_society_logo.png',
-    };
-
-String getCharityCause(CharityCause cause) => switch (cause) {
-      CharityCause.agriculture => 'Agriculture',
-      CharityCause.health => 'Health',
-      CharityCause.humanitarian => 'Humanitarian',
-      CharityCause.trafficking => 'Trafficking',
-      CharityCause.other => 'Other',
-    };
 
 void showCharityDetails(BuildContext context, Charity charity) {
   showModalBottomSheet(

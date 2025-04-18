@@ -3,9 +3,9 @@
 CREATE TABLE "user"
 (
   userid SERIAL NOT NULL,
-  firstname VARCHAR(15) NOT NULL,
-  lastname VARCHAR(20) NOT NULL,
-  email VARCHAR(50) UNIQUE NOT NULL,
+  firstname TEXT NOT NULL,
+  lastname TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
   onboard_level TEXT NOT NULL,
   isdeleted BOOLEAN NOT NULL DEFAULT false,
   deleted_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE CHARITY
   charityid SERIAL NOT NULL,
   charityname TEXT UNIQUE NOT NULL,
   description TEXT NOT NULL,
-  logo VARCHAR(15) NOT NULL,
+  logo TEXT NOT NULL,
   isactive BOOLEAN NOT NULL DEFAULT true,
   stripe_account_id VARCHAR(30) UNIQUE NOT NULL,
   cause TEXT NOT NULL DEFAULT "other",
@@ -44,7 +44,7 @@ CREATE TABLE ROUNDUP_SETTING
 (
   roundupid SERIAL NOT NULL,
   userid INT UNIQUE NOT NULL,
-  charityid INT,
+  next_charity_index INT NOT NULL DEFAULT 0,
   monthlycap INT NOT NULL DEFAULT 25,
   has_monthly_cap BOOLEAN NOT NULL DEFAULT false,
   totalytd FLOAT NOT NULL DEFAULT 0.0,
@@ -83,6 +83,7 @@ CREATE TABLE DONATION_HISTORY
   FOREIGN KEY (userid) REFERENCES "user"(userid) ON DELETE CASCADE
 );
 
+
 -- INDEXES
 
 -- Create indexes on USER table
@@ -103,6 +104,7 @@ CREATE UNIQUE INDEX idx_user_bank_plaid_account_id ON USER_BANK (plaid_account_i
 CREATE INDEX idx_donation_history_userid ON DONATION_HISTORY (userid);
 CREATE INDEX idx_donation_history_charityid ON DONATION_HISTORY (charityid);
 
+
 -- VIEWS
 CREATE OR REPLACE VIEW get_donation_history AS
   SELECT d.donationid, d.charityid, d.userid, d.donation_amount, d.donationdate,
@@ -110,3 +112,9 @@ CREATE OR REPLACE VIEW get_donation_history AS
   FROM donation_history d
   INNER JOIN charity c ON d.charityid = c.charityid
   ORDER BY d.donationdate DESC;
+
+CREATE OR REPLACE VIEW get_charity_queue AS
+  SELECT u.userid, u.charityid, c.charityname, c.description, c.logo, c.isactive, c.cause
+  FROM user_charity u
+  INNER JOIN charity c on u.charityid = c.charityid
+  ORDER BY c.charityname;

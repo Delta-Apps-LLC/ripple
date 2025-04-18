@@ -4,6 +4,9 @@ enum CharityLogo {
   salvationArmy,
   stJude,
   americanCancerSociety,
+  doctorsWithoutBorders,
+  noKidHungry,
+  worldWildlife,
 }
 
 enum CharityCause {
@@ -11,6 +14,8 @@ enum CharityCause {
   trafficking,
   health,
   humanitarian,
+  conservation,
+  hunger,
   other,
 }
 

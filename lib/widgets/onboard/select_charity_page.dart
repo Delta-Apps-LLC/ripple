@@ -15,11 +15,11 @@ class SelectCharityPage extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Your roundups will be donated to the charity you select here. You can change your charity at any time later.',
+            'Your round-ups will be donated to the charity you select here.\n\nYou can add or remove charities from your rotation at any time later.',
             style: GoogleFonts.lato(color: AppColors.black, fontSize: 18),
           ),
           const SizedBox(
-            height: 8,
+            height: 20,
           ),
           CharityList(
             onCharitySelected: onCharitySelected,

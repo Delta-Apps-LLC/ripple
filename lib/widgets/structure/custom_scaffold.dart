@@ -14,7 +14,7 @@ class CustomScaffold extends StatefulWidget {
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {

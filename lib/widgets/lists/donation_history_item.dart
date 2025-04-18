@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ripple/models/charity.dart';
 import 'package:ripple/models/donation_history.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/utils/misc/parse_charity_info.dart';
 
 class DonationHistoryItem extends StatelessWidget {
   const DonationHistoryItem({super.key, required this.item});
   final DonationHistory item;
-
-  String getCharityLogoAsset(CharityLogo logo) => switch (logo) {
-        CharityLogo.stJude => 'assets/images/charities/st_jude_logo.png',
-        CharityLogo.feedingAmerica =>
-          'assets/images/charities/feeding_america_logo.png',
-        CharityLogo.our => 'assets/images/charities/our_logo.png',
-        CharityLogo.salvationArmy =>
-          'assets/images/charities/salvation_army_logo.png',
-        CharityLogo.americanCancerSociety =>
-          'assets/images/charities/am_cancer_society_logo.png',
-      };
 
   String formatDate(DateTime timestamp) {
     final day = timestamp.day;
