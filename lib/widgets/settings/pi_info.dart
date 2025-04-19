@@ -25,7 +25,9 @@ class _PiInfoState extends State<PiInfo> {
       "Name":
           "${widget.provider.person?.firstName} ${widget.provider.person?.lastName}",
       "Email": "${widget.provider.person?.email}",
-      "Address": addressStr?.isEmpty == true ? 'None' : '$addressStr',
+      "Address": (addressStr?.isEmpty == true || addressStr == null)
+          ? 'None'
+          : addressStr,
     };
 
     return Column(
