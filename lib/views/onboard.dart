@@ -279,95 +279,91 @@ class _OnboardViewState extends State<OnboardView> {
                         (BuildContext context, BoxConstraints constraints) {
                       return Consumer<UserIdentityProvider>(
                         builder: (context, userIdentityProvider, child) =>
-                            SingleChildScrollView(
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                                minHeight: constraints.maxHeight),
-                            child: Consumer<CharityProvider>(
-                              builder: (context, charityProvider, child) =>
-                                  Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  PageTitle(
-                                    title: _getPageTitle(_currentPage),
-                                  ),
-                                  pages[_currentPage].page,
-                                  if (_loading)
-                                    CircularProgressIndicator(
-                                      color: AppColors.darkBlue,
-                                    ),
-                                  (pages[_currentPage].hasBackButton &&
-                                          pages[_currentPage].hasNextButton)
-                                      ? Row(
-                                          children: [
-                                            Expanded(
-                                              child: CustomIconButton(
-                                                text: 'Previous',
-                                                colors: [
-                                                  AppColors.lightGray,
-                                                  AppColors.purple
-                                                ],
-                                                function: decrementPage,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              child: CustomIconButton(
-                                                text: 'Next',
-                                                colors: [
-                                                  AppColors.lightGray,
-                                                  AppColors.purple
-                                                ],
-                                                function: () =>
-                                                    determineNextFunction(
-                                                        authProvider,
-                                                        userIdentityProvider,
-                                                        charityProvider),
-                                              ),
-                                            )
-                                          ],
+                            Consumer<CharityProvider>(
+                          builder: (context, charityProvider, child) => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              PageTitle(
+                                title: _getPageTitle(_currentPage),
+                              ),
+                              if (_currentPage == 0)
+                                Flexible(
+                                    child: SingleChildScrollView(
+                                        child: pages[_currentPage].page)),
+                              if (_currentPage != 0)
+                                Expanded(child: pages[_currentPage].page),
+                              if (_loading)
+                                CircularProgressIndicator(
+                                  color: AppColors.darkBlue,
+                                ),
+                              (pages[_currentPage].hasBackButton &&
+                                      pages[_currentPage].hasNextButton)
+                                  ? Row(
+                                      children: [
+                                        Expanded(
+                                          child: CustomIconButton(
+                                            text: 'Previous',
+                                            colors: [
+                                              AppColors.lightGray,
+                                              AppColors.purple
+                                            ],
+                                            function: decrementPage,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: CustomIconButton(
+                                            text: 'Next',
+                                            colors: [
+                                              AppColors.lightGray,
+                                              AppColors.purple
+                                            ],
+                                            function: () =>
+                                                determineNextFunction(
+                                                    authProvider,
+                                                    userIdentityProvider,
+                                                    charityProvider),
+                                          ),
                                         )
-                                      : (pages[_currentPage].hasBackButton &&
+                                      ],
+                                    )
+                                  : (pages[_currentPage].hasBackButton &&
+                                          !pages[_currentPage].hasNextButton)
+                                      ? CustomIconButton(
+                                          text: 'Previous',
+                                          colors: [
+                                            AppColors.lightGray,
+                                            AppColors.purple
+                                          ],
+                                          function: decrementPage,
+                                        )
+                                      : (!pages[_currentPage].hasBackButton &&
                                               !pages[_currentPage]
                                                   .hasNextButton)
                                           ? CustomIconButton(
-                                              text: 'Previous',
+                                              text: '',
+                                              colors: [
+                                                Colors.transparent,
+                                                Colors.transparent,
+                                              ],
+                                              function: null,
+                                            )
+                                          : CustomIconButton(
+                                              text: 'Next',
                                               colors: [
                                                 AppColors.lightGray,
                                                 AppColors.purple
                                               ],
-                                              function: decrementPage,
-                                            )
-                                          : (!pages[_currentPage]
-                                                      .hasBackButton &&
-                                                  !pages[_currentPage]
-                                                      .hasNextButton)
-                                              ? CustomIconButton(
-                                                  text: '',
-                                                  colors: [
-                                                    Colors.transparent,
-                                                    Colors.transparent,
-                                                  ],
-                                                  function: null,
-                                                )
-                                              : CustomIconButton(
-                                                  text: 'Next',
-                                                  colors: [
-                                                    AppColors.lightGray,
-                                                    AppColors.purple
-                                                  ],
-                                                  function: () =>
-                                                      determineNextFunction(
-                                                          authProvider,
-                                                          userIdentityProvider,
-                                                          charityProvider),
-                                                ),
-                                ],
-                              ),
-                            ),
+                                              function: () =>
+                                                  determineNextFunction(
+                                                      authProvider,
+                                                      userIdentityProvider,
+                                                      charityProvider),
+                                            ),
+                            ],
                           ),
                         ),
                       );

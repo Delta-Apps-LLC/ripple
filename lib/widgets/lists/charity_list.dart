@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ripple/models/charity.dart';
 import 'package:ripple/providers/charity_provider.dart';
 import 'package:ripple/themes.dart';
+import 'package:ripple/utils/misc/snackbar.dart';
 import 'package:ripple/widgets/lists/charity_list_item.dart';
 
 class CharityList extends StatefulWidget {
@@ -46,11 +47,19 @@ class _CharityListState extends State<CharityList> {
                             displayStar: widget.displayStar,
                             onTap: widget.onCharitySelected != null
                                 ? () {
-                                    setState(() {
-                                      _selectedCharityIndex = index;
-                                      widget.onCharitySelected!(
-                                          charityProvider.charities[index]);
-                                    });
+                                    if (!charityProvider
+                                        .charities[index].isActive) {
+                                      showCustomSnackbar(
+                                          context,
+                                          'This charity is currently inactive, please choose another one',
+                                          AppColors.errorRed);
+                                    } else {
+                                      setState(() {
+                                        _selectedCharityIndex = index;
+                                        widget.onCharitySelected!(
+                                            charityProvider.charities[index]);
+                                      });
+                                    }
                                   }
                                 : null,
                           );
