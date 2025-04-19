@@ -1,58 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:ripple/providers/roundup_setting_provider.dart';
 import 'package:ripple/themes.dart';
-import 'package:ripple/utils/misc/snackbar.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle({
     super.key,
     required this.title,
-    this.hasRefresh = false,
+    this.subTitle,
+    this.trailingButton,
   });
   final String title;
-  final bool hasRefresh;
+  final String? subTitle;
+  final Widget? trailingButton;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
-          mainAxisAlignment: hasRefresh
+          mainAxisAlignment: trailingButton != null
               ? MainAxisAlignment.spaceBetween
               : MainAxisAlignment.center,
           children: [
-            if (hasRefresh)
+            if (trailingButton != null)
               Icon(
                 Icons.refresh,
                 size: 28,
                 color: Colors.transparent,
               ),
             Expanded(
-              child: Text(
-                title,
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                    color: AppColors.black, fontSize: 24),
+              child: Column(
+                children: [
+                  Text(
+                    title,
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.montserrat(
+                        color: AppColors.black, fontSize: 24),
+                  ),
+                  if (subTitle != null)
+                    Text(
+                      '$subTitle',
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                        color: AppColors.black,
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    )
+                ],
               ),
             ),
-            if (hasRefresh)
-              Consumer<RoundupSettingProvider>(
-                builder: (context, roundupSettingProvider, child) => IconButton(
-                  icon: const Icon(
-                    Icons.refresh,
-                    color: AppColors.black,
-                    size: 28,
-                  ),
-                  onPressed: () async {
-                    showCustomSnackbar(context, 'Refreshing dashboard data...',
-                        AppColors.green);
-                    await roundupSettingProvider.refresh();
-                  },
-                ),
-              ),
+            if (trailingButton != null) trailingButton!
           ],
         ),
         const SizedBox(
