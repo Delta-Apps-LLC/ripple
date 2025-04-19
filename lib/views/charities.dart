@@ -6,7 +6,6 @@ import 'package:ripple/utils/misc/snackbar.dart';
 import 'package:ripple/widgets/lists/charity_list.dart';
 import 'package:ripple/widgets/lists/charity_list_item.dart';
 import 'package:ripple/widgets/misc/charity_queue.dart';
-import 'package:ripple/widgets/misc/custom_icon_button.dart';
 import 'package:ripple/widgets/misc/page_title.dart';
 
 class CharityView extends StatefulWidget {
@@ -18,68 +17,83 @@ class CharityView extends StatefulWidget {
 
 class _CharityViewState extends State<CharityView> {
   bool _loading = false;
-
-  saveQueueEdits(CharityProvider charityProvider) async {
-    setState(() => _loading = true);
-    await charityProvider.saveQueueEdits();
-    setState(() => _loading = false);
-    showCustomSnackbar(
-        context, 'Your charity queue has been updated', AppColors.green);
+  Widget _buildTrailingButton(CharityProvider charityProvider) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 24.0),
+      child: IconButton(
+        icon: Icon(
+          Icons.save,
+          color: charityProvider.hasQueueBeenModified
+              ? AppColors.black
+              : AppColors.lightGray,
+          size: 28,
+        ),
+        tooltip: 'Save Changes',
+        onPressed: charityProvider.hasQueueBeenModified
+            ? () async {
+                setState(() => _loading = true);
+                await charityProvider.saveQueueEdits();
+                setState(() => _loading = false);
+                if (context.mounted) {
+                  showCustomSnackbar(
+                    context,
+                    'Your charity queue has been updated',
+                    AppColors.green,
+                  );
+                }
+              }
+            : null,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<CharityProvider>(
-      builder: (context, charityProvider, child) => SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            PageTitle(
-              title: 'Your Charity Queue',
-            ),
-            (charityProvider.isLoadingCharities)
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.darkBlue,
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(top: 12.0, bottom: 30),
-                    child: charityProvider.charityQueue.length > 1
-                        ? CharityQueue()
-                        : CharityListItem(
-                            charity: charityProvider.charityQueue.first,
-                            isSelected: false,
-                            onTap: null,
-                          ),
+      builder: (context, charityProvider, child) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          PageTitle(
+            title: 'Your Charity Queue',
+            subTitle:
+                'Highlighted charity will receive the next donation. Inactive charities will be skipped.',
+          ),
+          (charityProvider.isLoadingCharities)
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.darkBlue,
                   ),
-            PageTitle(
-              title: 'All Charities',
-            ),
-            CharityList(
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(top: 12.0, bottom: 30),
+                  child: charityProvider.charityQueue.length > 1
+                      ? CharityQueue()
+                      : CharityListItem(
+                          charity: charityProvider.charityQueue.first,
+                          isSelected: false,
+                          onTap: null,
+                        ),
+                ),
+          PageTitle(
+            title: 'All Charities',
+            subTitle: 'Faded charities are currently inactive',
+            trailingButton: _loading
+                ? CircularProgressIndicator(
+                    color: AppColors.darkBlue,
+                  )
+                : _buildTrailingButton(charityProvider),
+          ),
+          Expanded(
+            child: CharityList(
               displayStar: true,
             ),
-            if (_loading)
-              CircularProgressIndicator(
-                color: AppColors.darkBlue,
-              ),
-            Consumer<CharityProvider>(
-              builder: (context, charityProvider, child) => Padding(
-                padding: const EdgeInsets.only(top: 24.0),
-                child: CustomIconButton(
-                  text: 'Save Changes',
-                  colors: [AppColors.darkGray, AppColors.purple],
-                  function: () => saveQueueEdits(charityProvider),
-                  disabled: !charityProvider.hasQueueBeenModified,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+        ],
       ),
     );
   }

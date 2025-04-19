@@ -38,7 +38,7 @@ class RoundupSettingService {
     await Supabase.instance.client
         .from(_roundupTable)
         .update({'next_charity_index': 0})
-        .eq('roundupId', roundupId);
+        .eq('roundupid', roundupId);
   }
 
   RoundupSetting _mapToRoundupSetting(Map<String, dynamic> map) =>
