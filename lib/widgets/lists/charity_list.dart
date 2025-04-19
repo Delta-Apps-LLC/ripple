@@ -23,33 +23,41 @@ class _CharityListState extends State<CharityList> {
     return Consumer<CharityProvider>(
       builder: (context, charityProvider, child) =>
           charityProvider.isLoadingCharities
-              ? CircularProgressIndicator(
-                  color: AppColors.darkBlue,
-                )
-              : SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.425,
-                  child: ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(height: 10.0);
-                    },
-                    itemCount: charityProvider.charities.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CharityListItem(
-                        charity: charityProvider.charities[index],
-                        isSelected: _selectedCharityIndex == index,
-                        displayStar: widget.displayStar,
-                        onTap: widget.onCharitySelected != null
-                            ? () {
-                                setState(() {
-                                  _selectedCharityIndex = index;
-                                  widget.onCharitySelected!(
-                                      charityProvider.charities[index]);
-                                });
-                              }
-                            : null,
-                      );
-                    },
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.darkBlue,
                   ),
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(height: 10.0);
+                        },
+                        itemCount: charityProvider.charities.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return CharityListItem(
+                            charity: charityProvider.charities[index],
+                            isSelected: _selectedCharityIndex == index,
+                            displayStar: widget.displayStar,
+                            onTap: widget.onCharitySelected != null
+                                ? () {
+                                    setState(() {
+                                      _selectedCharityIndex = index;
+                                      widget.onCharitySelected!(
+                                          charityProvider.charities[index]);
+                                    });
+                                  }
+                                : null,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
     );
   }

@@ -50,7 +50,14 @@ class _CharityListItemState extends State<CharityListItem> {
             'You cannot have more than four charities in your queue',
             AppColors.errorRed);
       } else {
-        charityProvider.addToQueue(widget.charity);
+        if (!widget.charity.isActive) {
+          showCustomSnackbar(
+              context,
+              'This charity is current inactive, please choose another one',
+              AppColors.errorRed);
+        } else {
+          charityProvider.addToQueue(widget.charity);
+        }
       }
     }
   }
@@ -58,70 +65,74 @@ class _CharityListItemState extends State<CharityListItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: widget.isSelected ? AppColors.lightBlue : Colors.transparent,
-            width: 1.5,
+      onTap: widget.onTap, // TODO: logic for inactive charity for onboard page
+      child: Opacity(
+        opacity: widget.charity.isActive ? 1.0 : 0.4,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color:
+                  widget.isSelected ? AppColors.lightBlue : Colors.transparent,
+              width: 1.5,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6.0),
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: AppColors.lightGray.withOpacity(0.4),
-                radius: 25,
-                child: Image.asset(
-                  getCharityLogoAsset(widget.charity.logo),
-                  height: 25,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: AppColors.lightGray.withOpacity(0.4),
+                  radius: 25,
+                  child: Image.asset(
+                    getCharityLogoAsset(widget.charity.logo),
+                    height: 25,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.charity.charityName,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.montserrat(
-                          color: AppColors.black, fontSize: 16),
-                    ),
-                    Text(
-                      'Cause: ${getCharityCause(widget.charity.cause)}',
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.lato(
-                          color: AppColors.black, fontSize: 14),
-                    ),
-                  ],
+                const SizedBox(
+                  width: 12,
                 ),
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.info_outline,
-                  color: AppColors.green,
-                  size: 28,
-                ),
-                onPressed: () => showCharityDetails(context, widget.charity),
-              ),
-              if (widget.displayStar)
-                Consumer<CharityProvider>(
-                  builder: (context, charityProvider, child) => IconButton(
-                      icon: Icon(
-                        isInQueue(charityProvider)
-                            ? Icons.star
-                            : Icons.star_outline,
-                        color: AppColors.green,
-                        size: 28,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.charity.charityName,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.montserrat(
+                            color: AppColors.black, fontSize: 16),
                       ),
-                      onPressed: () => addOrRemoveFromQueue(charityProvider)),
+                      Text(
+                        'Cause: ${getCharityCause(widget.charity.cause)}',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(
+                            color: AppColors.black, fontSize: 14),
+                      ),
+                    ],
+                  ),
                 ),
-            ],
+                IconButton(
+                  icon: const Icon(
+                    Icons.info_outline,
+                    color: AppColors.green,
+                    size: 28,
+                  ),
+                  onPressed: () => showCharityDetails(context, widget.charity),
+                ),
+                if (widget.displayStar)
+                  Consumer<CharityProvider>(
+                    builder: (context, charityProvider, child) => IconButton(
+                        icon: Icon(
+                          isInQueue(charityProvider)
+                              ? Icons.star
+                              : Icons.star_outline,
+                          color: AppColors.green,
+                          size: 28,
+                        ),
+                        onPressed: () => addOrRemoveFromQueue(charityProvider)),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
